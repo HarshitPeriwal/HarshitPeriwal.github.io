@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HarshitGPT Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #111111;
+            --text-color: #E0E0E0;
+            --accent-color: #A7FF1A; /* Lime Green */
+            --light-gray: #A0A0A0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+            background-color: var(--dark-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .chat-app {
+            background-color: #1A1A1A;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 900px;
+            height: 90vh;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chat-header {
+            padding: 15px 25px;
+            background-color: #252525;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--accent-color);
+            font-size: 1.8em;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .chat-box {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chat-box::-webkit-scrollbar { width: 8px; }
+        .chat-box::-webkit-scrollbar-track { background: #2a2a2a; }
+        .chat-box::-webkit-scrollbar-thumb { background-color: #555; border-radius: 10px; border: 2px solid #2a2a2a; }
+
+        .chat-message {
+            display: flex;
+            max-width: 75%;
+            animation: fadeInMessage 0.3s ease-in-out;
+        }
+        @keyframes fadeInMessage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-message .message-content {
+            padding: 12px 18px;
+            border-radius: 20px;
+            line-height: 1.5;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+        
+        .chat-message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+        .chat-message.user .message-content {
+            background-color: var(--accent-color);
+            color: var(--dark-bg);
+            font-weight: 500;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .chat-message.ai {
+            align-self: flex-start;
+        }
+        .chat-message.ai .message-content {
+            background-color: #333;
+            color: var(--text-color);
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-message.loading .message-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px;
+        }
+        .dot-flashing {
+            position: relative; width: 10px; height: 10px; border-radius: 5px; background-color: var(--light-gray); animation: dotFlashing 1s infinite linear alternate; animation-delay: .5s;
+        }
+        .dot-flashing::before, .dot-flashing::after { content: ''; display: inline-block; position: absolute; top: 0; }
+        .dot-flashing::before { left: -15px; width: 10px; height: 10px; border-radius: 5px; background-color: var(--light-gray); animation: dotFlashing 1s infinite alternate; animation-delay: 0s; }
+        .dot-flashing::after { left: 15px; width: 10px; height: 10px; border-radius: 5px; background-color: var(--light-gray); animation: dotFlashing 1s infinite alternate; animation-delay: 1s; }
+        @keyframes dotFlashing { 0% { background-color: var(--light-gray); } 50%, 100% { background-color: #666; } }
+
+        .chat-input-area {
+            display: flex;
+            padding: 15px 25px;
+            background-color: #252525;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #user-input {
+            flex-grow: 1;
+            background-color: #333;
+            border: 1px solid #444;
+            border-radius: 25px;
+            padding: 12px 20px;
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        #user-input:focus { border-color: var(--accent-color); }
+        #user-input::placeholder { color: #666; }
+
+        #send-btn {
+            background-color: var(--accent-color);
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-bg);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            flex-shrink: 0;
+        }
+        #send-btn:hover { transform: scale(1.05); background-color: #c1ff72; }
+        #send-btn:disabled { background-color: #555; cursor: not-allowed; }
+
+        @media (max-width: 950px) {
+            .chat-app { width: 95vw; height: 95vh; }
+            .chat-message { max-width: 85%; }
+        }
+
+        @media (max-width: 600px) {
+            .chat-app { width: 100vw; height: 100vh; border-radius: 0; }
+            .chat-header { font-size: 1.5em; padding: 12px 15px; }
+            .chat-input-area { padding: 10px 15px; }
+            #user-input { padding: 10px 15px; }
+            #send-btn { width: 40px; height: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chat-app">
+        <div class="chat-header">HarshitGPT</div>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="chat-input-area">
+            <input type="text" id="user-input" placeholder="Ask about Harshit's work, skills, or projects..." autocomplete="off" autofocus>
+            <button id="send-btn" title="Send Message">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const API_KEY = 'AIzaSyBteCjqX_9qRQcAejS6tPqn41uSnVH2e7E'; 
+            const MODEL_NAME = 'gemini-2.0-flash-lite';
+            const systemPrompt = `You are "HarshitGPT," an AI trained and created solely by Harshit Periwal. This model is developed and hosted on Harshit Periwal’s official website — harshitperiwal.in. You were built to answer questions about Harshit and his work. Harshit Periwal is a Grade 12 student from Nagpur, India, with a strong passion for Computer Science, Artificial Intelligence, and 3D art. He aims to use AI to make technology more accessible globally. He has: - Developed "Eco Bin," an AI-based waste segregation app. - Founded and leads his school’s AI Club, where he teaches weekly about AI tools and helped integrate iPads into classrooms. - Created two apps and one game published on Google Play. - Secured a Top 50 All India Rank in the Government of India’s Future Tech Olympiad with IBM. - Won two national CS competitions and ranked in the top 100 nationally in the CS Olympiad out of 50,000+ students. - Placed 2nd in the Cenfest Codeathon and was the national runner-up in the National Game Design Championship with Garry’s Escape, an educational physics and chemistry game. - Attended the India Game Developer Conference (IGDC) as a fully-sponsored delegate, where he met industry leaders like Nikhil Malankar. - Interned at Lighthouse Learning Digital Labs and serves as Lead Website Developer for CENMUN. - Organized and won several MUNs across Nagpur from Grade 6–12, including GLOMUN (the largest private MUN in the city), where he served as Director General and donated 50% of event profits to charity. - Runs a YouTube channel with over 4,000 subscribers and manages a Discord community of 3,000+ members centered on modding and gaming. - Scored 95% in school academics and is a Principal’s Scholar. Harshit’s long-term goal is to empower underrepresented communities by teaching them how to leverage technology and AI tools available even on their mobile devices. When Harshit isn’t coding, you’ll find him in the gym, playing tennis, participating in MUNs, or spending time with friends. Your role: - Answer all questions as if you are representing Harshit. - Be informative, warm, and authentic — like a digital version of him. - If asked about personal preferences, experiences, or achievements, use the details above. - If asked something unrelated or unknown, politely respond that the information isn’t available yet. - Always keep answers fact-based and consistent with Harshit’s background and goals.`;
+
+            const chatBox = document.getElementById('chat-box');
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+            
+            let isThinking = false;
+            let conversationHistory = [];
+
+            const addMessage = (content, sender, isLoading = false) => {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('chat-message', sender);
+                
+                if (isLoading) {
+                    messageDiv.id = 'loading-indicator';
+                    messageDiv.innerHTML = `<div class="message-content"><div class="dot-flashing"></div></div>`;
+                } else {
+                    const contentDiv = document.createElement('div');
+                    contentDiv.classList.add('message-content');
+                    contentDiv.textContent = content; 
+                    messageDiv.appendChild(contentDiv);
+                }
+                
+                chatBox.appendChild(messageDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+                return messageDiv;
+            };
+
+            const toggleInputState = (state) => {
+                isThinking = state;
+                userInput.disabled = state;
+                sendBtn.disabled = state;
+            };
+
+            const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+            const callGeminiAPI = async () => {
+                if (isThinking) return;
+
+                const userText = userInput.value.trim();
+                if (!userText) return;
+
+                toggleInputState(true);
+                addMessage(userText, 'user');
+                userInput.value = '';
+                conversationHistory.push({ role: 'user', parts: [{ text: userText }] });
+                
+                const loadingIndicator = addMessage('', 'ai', true);
+
+                let retries = 3;
+                let delay = 2000;
+
+                while (retries > 0) {
+                    try {
+                        const apiURL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`;
+                        
+                        const requestBody = {
+                            systemInstruction: { parts: [{ text: systemPrompt }] },
+                            contents: conversationHistory,
+                            safetySettings: [
+                                { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+                                { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+                                { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+                                { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
+                            ],
+                            generationConfig: {
+                                maxOutputTokens: 2000,
+                                temperature: 0.7 
+                            }
+                        };
+
+                        const response = await fetch(apiURL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(requestBody)
+                        });
+
+                        const data = await response.json();
+                        
+                        if (!response.ok) {
+                            if (response.status === 429) { throw new Error('Model overloaded'); }
+                            const errorMessage = data.error ? data.error.message : "An unknown API error occurred.";
+                            throw new Error(errorMessage);
+                        }
+                        
+                        if (!data.candidates || data.candidates.length === 0) {
+                           throw new Error("The model did not return a valid response.");
+                        }
+                        
+                        const aiText = data.candidates[0].content.parts[0].text;
+                        
+                        loadingIndicator.remove();
+                        addMessage(aiText, 'ai');
+                        conversationHistory.push({ role: 'model', parts: [{ text: aiText }] });
+                        
+                        // =======================================================
+                        // !!! THIS IS THE FIX: Use break; instead of return; !!!
+                        // =======================================================
+                        break; // Exit the loop successfully, but NOT the function
+
+                    } catch (error) {
+                        if (error.message.includes('overloaded') && retries > 1) {
+                            retries--;
+                            await sleep(delay);
+                            delay *= 2;
+                        } else {
+                            console.error("Gemini API Error:", error);
+                            loadingIndicator.remove();
+                            addMessage("Sorry, the AI is currently unavailable. Please try again later.", 'ai');
+                            retries = 0;
+                        }
+                    }
+                }
+                
+                // This code will now be reached after a successful message OR after all retries fail
+                toggleInputState(false);
+                userInput.focus();
+            };
+
+            const initializeChat = () => {
+                const greeting = "Hello! I'm HarshitGPT, an AI assistant built by Harshit. Feel free to ask me anything about his work, skills, or projects.";
+                addMessage(greeting, 'ai');
+                conversationHistory.push({ role: 'model', parts: [{ text: greeting }] });
+            };
+
+            sendBtn.addEventListener('click', callGeminiAPI);
+            userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') { callGeminiAPI(); }
+            });
+            
+            initializeChat();
+            userInput.focus();
+        });
+    </script>
+</body>
+</html>
