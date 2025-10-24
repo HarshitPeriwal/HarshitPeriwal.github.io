@@ -174,14 +174,35 @@ section + section { border-top: 1px solid rgba(255, 255, 255, 0.1); }
 }
 
 @media (max-width: 768px) {
+    /* --- MOBILE PERFORMANCE OPTIMIZATION: Hide heavy video backgrounds --- */
+    .video-background video {
+        display: none;
+    }
+    /* Set a static fallback background for the hero section */
+    .hero-section {
+        background: var(--dark-bg);
+    }
+    
+    /* --- MOBILE UI/UX REFINEMENTS --- */
     .content-section { padding: 80px 0; }
     .projects-grid, .certificates-grid, .contact-grid { grid-template-columns: 1fr; }
+    
     .hero-headline { font-size: 2.8em; line-height: 1.2; }
     .hero-subheading { font-size: 1.1em; }
     .section-title { font-size: 2.5em; margin-bottom: 50px; }
-    .glass-card { padding: 40px 25px; border: none; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); }
+    .about-text p { font-size: 1.05em; }
+    
+    .glass-card { 
+        padding: 40px 25px; 
+        border: none; 
+        backdrop-filter: blur(15px); 
+        -webkit-backdrop-filter: blur(15px);
+        max-width: 100%;
+    }
+    
     .navbar .container { flex-direction: row; justify-content: space-between; }
     .nav-toggle-label { display: block; }
+    
     .nav-links {
         position: fixed;
         top: 0;
