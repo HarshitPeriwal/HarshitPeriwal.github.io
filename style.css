@@ -130,6 +130,20 @@ body {
     transform: translateY(-2px);
 }
 
+/* ============================================= */
+/* !!! NEW STYLES FOR THE "COMING SOON" LINK !!! */
+/* ============================================= */
+.project-link.coming-soon {
+    background-color: #282828;
+    opacity: 0.6;
+    cursor: default;
+}
+
+.project-link.coming-soon:hover {
+    background-color: #282828; /* Keep the same background on hover */
+    transform: none; /* Disable the lift effect */
+}
+
 
 /* Responsive adjustments for mobile devices */
 @media (max-width: 768px) {
