@@ -9,155 +9,33 @@
 </head>
 <body>
 
-    <!-- Persistent Dots Background -->
-    <div class="video-background" id="dots-background">
-        <div class="video-overlay"></div>
-        <video playsinline autoplay muted loop>
-            <source src="BGDots.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-
-    <!-- UPDATED HEADER FOR MOBILE MENU -->
-    <header class="navbar">
-        <div class="container">
-            <a href="#" class="logo">Harshit Periwal</a>
-
-            <!-- Checkbox to control menu state on mobile -->
-            <input type="checkbox" id="nav-toggle" class="nav-toggle">
-            
-            <!-- Hamburger menu icon -->
-            <label for="nav-toggle" class="nav-toggle-label">
-                <span></span>
-            </label>
-
-            <!-- Wrapped nav links in a div for styling -->
-            <nav class="nav-links">
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#research">Research</a></li>
-                    <li><a href="harshitgpt.html" target="_blank">HarshitGPT</a></li> 
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="video-background" id="hero-background">
-            <video playsinline autoplay muted loop>
-                <source src="BG.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-        <div class="container">
-            <div class="glass-card">
-                <h1 class="hero-headline">
-                    Building Worlds <br>
-                    with Code & Creativity
-                </h1>
-                <p class="hero-subheading">I craft immersive experiences with Unity and solve problems with technology. From game development to AI-powered applications.</p>
-                <a href="Harshit_Periwal_Resume.pdf" class="cta-button" target="_blank">Download Resume</a>
+    <main class="main-container">
+        <div class="glass-card">
+            <h1 class="headline">
+                Harshit Periwal
+            </h1>
+            <p class="about-text">
+                I’m a high school innovator passionate about AI and creativity. I build impactful projects like the AI-powered 'Eco Bin' app and the award-winning educational game 'Garry’s Escape.' Driven by curiosity, my goal is to make technology accessible for everyone.
+            </p>
+            <div class="action-links">
+                <a href="Harshit_Periwal_Resume.pdf" class="action-link" target="_blank">View Resume</a>
+                <a href="harshitgpt.html" class="action-link" target="_blank">Chat with HarshitGPT</a>
             </div>
-        </div>
-    </section>
 
-    <!-- About Me Section -->
-    <section id="about" class="content-section">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-layout">
-                <div class="about-image">
-                    <img src="profile-sticker.png" alt="A sticker-style photo of Harshit Periwal">
-                </div>
-                <!-- =================================== -->
-                <!-- !!! UPDATED ABOUT ME TEXT BELOW !!! -->
-                <!-- =================================== -->
-                <div class="about-text">
-                    <p>I’m Harshit Periwal, a high school innovator passionate about artificial intelligence, technology, and creativity. I love turning ideas into impact — from developing AI-powered apps to designing educational games that make learning fun.</p>
-                    <p>One of my favorite projects, Eco Bin, is an AI-based waste segregation app that promotes cleaner, smarter communities. I earned a <span class="highlight">bronze medal (AIR 124) in the Future Tech Olympiad</span> and was <span class="highlight">Runner-up in the National Game Design Championship</span> for my physics-based game, Garry’s Escape.</p>
-                    <p>Beyond coding, I stay active through tennis, gym workouts, and Model UNs, which keep me balanced and inspired.</p>
-                    <p>At my core, I’m driven by curiosity — to understand how things work and make technology more accessible and impactful for everyone.</p>
+            <div class="featured-projects">
+                <span class="featured-title">Try My Creations:</span>
+                <div class="project-links-wrapper">
+                    <a href="garrys-escape-build/index.html" class="project-link" target="_blank">Play Garry's Escape</a>
+                    <a href="eco-bin-build/index.html" class="project-link" target="_blank">Launch Eco Bin</a>
+                    <!-- =================================== -->
+                    <!-- !!! NEW YOUTUBE LINK ADDED HERE !!! -->
+                    <!-- =================================== -->
+                    <a href="https://www.youtube.com/@HarshitPeriwal" class="project-link" target="_blank">View YouTube</a>
                 </div>
             </div>
+
         </div>
-    </section>
+    </main>
 
-    <!-- Projects Section -->
-    <section id="projects" class="content-section">
-        <div class="container">
-            <h2 class="section-title">My Projects</h2>
-            <div class="projects-grid">
-                <a href="garrys-escape-build/index.html" class="project-card-link" target="_blank"><div class="project-card"><div class="project-image"><img src="garrys-escape-logo.png" alt="Garry's Escape Game Logo"></div><div class="project-content"><div class="project-tags"><span>Unity</span><span>C#</span><span>Game Design</span></div><h3 class="project-title">Garry's Escape</h3><p class="project-description">A fast-paced 2D mobile game. Players navigate Garry through challenging obstacles, testing their reflexes and timing.</p><span class="project-link">Play the Game &rarr;</span></div></div></a>
-                <a href="eco-bin-build/index.html" class="project-card-link" target="_blank"><div class="project-card"><div class="project-image"><img src="eco-bin-logo.png" alt="Eco Bin App Logo"></div><div class="project-content"><div class="project-tags"><span>Unity</span><span>Computer Vision</span><span>AI/ML</span></div><h3 class="project-title">Eco Bin</h3><p class="project-description">An innovative waste segregation app using a phone's camera to identify and classify waste for effective recycling.</p><span class="project-link">Launch Demo &rarr;</span></div></div></a>
-                <a href="https://www.youtube.com/@HarshitPeriwal" class="project-card-link" target="_blank"><div class="project-card"><div class="project-image"><img src="youtube-channel.png" alt="YouTube Channel Logo"></div><div class="project-content"><div class="project-tags"><span>Content Creation</span><span>Community</span><span>Modding</span></div><h3 class="project-title">YouTube Modding Channel</h3><p class="project-description">Built a community of over 4,100 subscribers by creating and sharing mods for popular Unity games on PC and Android.</p><span class="project-link">Visit Channel &rarr;</span></div></div></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Research Paper section -->
-    <section id="research" class="placeholder-section"><h2>Research Paper (Coming Soon)</h2></section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="content-section">
-        <div class="container">
-            <h2 class="section-title">Get in Touch</h2>
-            <p class="contact-intro">I'm open to collaborations and new opportunities. Feel free to reach out!</p>
-            <div class="contact-grid">
-                <a href="mailto:harshitperiwal123@gmail.com" class="contact-card">
-                    <div class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><title>Email Icon</title><path d="M1.5 4.5h21a.5.5 0 0 1 .5.5v14a.5.5 0 0 1-.5.5h-21a.5.5 0 0 1-.5-.5v-14a.5.5 0 0 1 .5-.5ZM2.003 5.511l9.194 7.662a1 1 0 0 0 1.606 0l9.194-7.662H2.003ZM2 18.38V6.388l8.992 7.493a2 2 0 0 0 3.216 0L23 6.388V18.5a.5.5 0 0 1-.5.5h-20a.5.5 0 0 1-.5-.5v-.12Z"/></svg></div>
-                    <h3 class="contact-title">Email</h3>
-                    <p class="contact-detail">harshitperiwal123@gmail.com</p>
-                </a>
-                <a href="tel:+917879729636" class="contact-card">
-                    <div class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><title>Phone Icon</title><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.279-.087.431l4.108 7.113a.75.75 0 0 0 .673.32h.001c.151 0 .297-.055.41-.157l1.326-1.073a1.875 1.875 0 0 1 2.073-.362l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z" clip-rule="evenodd" /></svg></div>
-                    <h3 class="contact-title">Phone</h3>
-                    <p class="contact-detail">+91 7879729636</p>
-                    <span class="contact-note">(Business Inquiries)</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Audio elements -->
-    <audio id="background-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
-    <audio id="click-sound"><source src="Click.mp3" type="audio/mpeg"></audio>
-
-    <script>
-        // --- Navbar Scroll Script ---
-        const navbar = document.querySelector('.navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('navbar-scrolled');
-            } else {
-                navbar.classList.remove('navbar-scrolled');
-            }
-        });
-
-        // --- Audio Control Script ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const backgroundMusic = document.getElementById('background-music');
-            const clickSound = document.getElementById('click-sound');
-            const clickableElements = document.querySelectorAll('a');
-            backgroundMusic.volume = 0.2;
-            const playMusic = () => {
-                backgroundMusic.play().catch(error => {
-                    console.log('Browser prevented autoplay. Waiting for user interaction.');
-                });
-                document.body.removeEventListener('click', playMusic);
-            };
-            document.body.addEventListener('click', playMusic);
-            const playClickSound = () => {
-                clickSound.currentTime = 0;
-                clickSound.play();
-            };
-            clickableElements.forEach(element => {
-                element.addEventListener('click', playClickSound);
-            });
-        });
-    </script>
 </body>
 </html>
