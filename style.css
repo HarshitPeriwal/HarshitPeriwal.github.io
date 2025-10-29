@@ -123,14 +123,6 @@ section + section { border-top: 1px solid rgba(255, 255, 255, 0.1); }
 .project-description { font-size: 0.95em; color: var(--light-gray); line-height: 1.6; flex-grow: 1; margin-bottom: 25px; }
 .project-link { color: var(--accent-color); text-decoration: none; font-weight: 600; }
 
-/* Certificates & Awards Section */
-.certificates-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-.certificate-card { background-color: #1A1A1A; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 30px; text-align: center; text-decoration: none; color: inherit; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
-.certificate-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); border-color: rgba(167, 255, 26, 0.5); }
-.certificate-icon svg { width: 50px; height: 50px; color: var(--accent-color); }
-.certificate-title { font-size: 1.3em; font-weight: 600; color: var(--text-color); margin: 0 0 5px 0; }
-.certificate-issuer { font-size: 1em; color: var(--light-gray); margin: 0; }
-
 /* Contact Section */
 .contact-intro { text-align: center; color: var(--light-gray); font-size: 1.2em; max-width: 600px; margin: -30px auto 50px auto; }
 .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
@@ -185,7 +177,7 @@ section + section { border-top: 1px solid rgba(255, 255, 255, 0.1); }
     
     /* --- MOBILE UI/UX REFINEMENTS --- */
     .content-section { padding: 80px 0; }
-    .projects-grid, .certificates-grid, .contact-grid { grid-template-columns: 1fr; }
+    .projects-grid, .contact-grid { grid-template-columns: 1fr; }
     
     .hero-headline { font-size: 2.8em; line-height: 1.2; }
     .hero-subheading { font-size: 1.1em; }
