@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate of Completion</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ai-literacy.css">
+    <style>
+        .certificate-container {
+            text-align: center;
+            padding: 40px;
+            border: 10px solid #ccc;
+            width: 80%;
+            margin: 40px auto;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .certificate-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #0056b3;
+        }
+        .certificate-subtitle {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+        .user-name {
+            font-size: 2em;
+            font-style: italic;
+            color: #d9534f;
+            border-bottom: 2px solid #333;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="glass-card">
+            <div class="certificate-container">
+                <div class="certificate-title">Certificate of Completion</div>
+                <div class="certificate-subtitle">This certifies that</div>
+                <div id="user-name" class="user-name">[Your Name Here]</div>
+                <div class="certificate-subtitle">has successfully completed the AI Literacy Drive.</div>
+            </div>
+            <button onclick="window.print()">Print Certificate</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const name = params.get('name') || '[Your Name Here]';
+            document.getElementById('user-name').textContent = name;
+        });
+    </script>
+</body>
+</html>

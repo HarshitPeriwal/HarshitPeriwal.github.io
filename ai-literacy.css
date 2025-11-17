@@ -1,0 +1,200 @@
+/* Basic Resets & Variables */
+:root {
+    --dark-bg: #111111;
+    --text-color: #E0E0E0;
+    --accent-color: #A7FF1A; /* Lime Green */
+    --light-gray: #A0A0A0;
+}
+
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    background-color: var(--dark-bg);
+    line-height: 1.6;
+}
+
+/* Main container to center content */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* The central content card with glass effect */
+#language-selection, #course-content, #certificate {
+    background-color: rgba(26, 26, 26, 0.5); /* Slightly darker glass */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px 50px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+    margin-bottom: 20px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1, h2, h3 {
+    color: #FFFFFF;
+}
+
+#language-selection h1, #course-content h1, #certificate h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+#language-selection button {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+    padding: 12px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+#language-selection button:hover {
+    background-color: var(--accent-color);
+    color: var(--dark-bg);
+}
+
+.topic {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.topic.locked {
+    opacity: 0.5;
+}
+
+.topic h2 {
+    color: var(--accent-color);
+    font-size: 1.8em;
+}
+
+.video {
+    margin-bottom: 20px;
+}
+
+.video iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+}
+
+.links {
+    margin-bottom: 20px;
+}
+
+.links h3 {
+    color: var(--light-gray);
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.links a {
+    display: inline-block;
+    background-color: #333;
+    color: var(--text-color);
+    padding: 8px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.links a:hover {
+    background-color: #444;
+    transform: translateY(-2px);
+}
+
+.quiz p {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+.quiz label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+    background-color: #282828;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.quiz label:hover {
+    background-color: #333;
+}
+
+.quiz input[type="radio"] {
+    margin-right: 10px;
+}
+
+button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--dark-bg);
+    border: 2px solid var(--accent-color);
+    padding: 12px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: transparent;
+    color: var(--accent-color);
+}
+
+#certificate-output {
+    border: 2px dashed var(--accent-color);
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+#name-input {
+    background-color: #282828;
+    color: var(--text-color);
+    border: 1px solid var(--light-gray);
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
