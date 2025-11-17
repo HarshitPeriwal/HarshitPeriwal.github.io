@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Lesson 1
         {
             title: { en: 'Introduction to AI and Data', hi: 'एआई और डेटा का परिचय', mr: 'एआय आणि डेटाची ओळख' },
-            videoLink: { en: 'https://www.youtube.com/embed/placeholder_en_1', hi: 'https://www.youtube.com/embed/placeholder_hi_1', mr: 'https://www.youtube.com/embed/placeholder_mr_1' },
+            videoLink: { en: 'https://www.youtube.com/embed/1-n6420-VpA', hi: 'https://www.youtube.com/embed/1-n6420-VpA', mr: 'https://www.youtube.com/embed/1-n6420-VpA' },
             description: { 
                 en: 'For more information, visit: <a href="https://www.kaggle.com/" target="_blank">Kaggle</a>',
                 hi: 'अधिक जानकारी के लिए, यहां जाएं: <a href="https://www.kaggle.com/" target="_blank">Kaggle</a>',
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Lesson 2
         {
             title: { en: 'Object Recognition with AI', hi: 'एआई के साथ ऑब्जेक्ट पहचान', mr: 'एआयसह ऑब्जेक्ट रेकग्निशन' },
-            videoLink: { en: 'https://www.youtube.com/embed/placeholder_en_2', hi: 'https://www.youtube.com/embed/placeholder_hi_2', mr: 'https://www.youtube.com/embed/placeholder_mr_2' },
+            videoLink: { en: 'https://www.youtube.com/embed/AqI7E2i0-8I', hi: 'https://www.youtube.com/embed/AqI7E2i0-8I', mr: 'https://www.youtube.com/embed/AqI7E2i0-8I' },
             description: { 
                 en: 'For more information, visit: <a href="https://teachablemachine.withgoogle.com/" target="_blank">Teachable Machine</a>',
                 hi: 'अधिक जानकारी के लिए, यहां जाएं: <a href="https://teachablemachine.withgoogle.com/" target="_blank">Teachable Machine</a>',
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Lesson 3
         {
             title: { en: 'Unlimited PPT Creation with Gamma', hi: 'गामा के साथ असीमित पीपीटी निर्माण', mr: 'गामासह अमर्याद पीपीटी निर्मिती' },
-            videoLink: { en: 'https://www.youtube.com/embed/placeholder_en_3', hi: 'https://www.youtube.com/embed/placeholder_hi_3', mr: 'https://www.youtube.com/embed/placeholder_mr_3' },
+            videoLink: { en: 'https://www.youtube.com/embed/Gf_4g3g4s_U', hi: 'https://www.youtube.com/embed/Gf_4g3g4s_U', mr: 'https://www.youtube.com/embed/Gf_4g3g4s_U' },
             description: { 
                 en: 'For more information, visit: <a href="https://gamma.app/" target="_blank">Gamma.app</a> and <a href="https://tempmail.la/" target="_blank">TempMail</a>',
                 hi: 'अधिक जानकारी के लिए, यहां जाएं: <a href="https://gamma.app/" target="_blank">Gamma.app</a> और <a href="https://tempmail.la/" target="_blank">TempMail</a>',
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Lesson 4
         {
             title: { en: 'Sketch to Image with FreePik', hi: 'फ्रीपिक के साथ स्केच से इमेज', mr: 'फ्रीपिकसह स्केच टू इमेज' },
-            videoLink: { en: 'https://www.youtube.com/embed/placeholder_en_4', hi: 'https://www.youtube.com/embed/placeholder_hi_4', mr: 'https://www.youtube.com/embed/placeholder_mr_4' },
+            videoLink: { en: 'https://www.youtube.com/embed/j-3-k-g-f-s', hi: 'https://www.youtube.com/embed/j-3-k-g-f-s', mr: 'https://www.youtube.com/embed/j-3-k-g-f-s' },
             description: { 
                 en: 'For more information, visit: <a href="https://www.freepik.com/ai/sketch-to-image" target="_blank">Freepik Sketch to Image</a>',
                 hi: 'अधिक जानकारी के लिए, यहां जाएं: <a href="https://www.freepik.com/ai/sketch-to-image" target="_blank">Freepik Sketch to Image</a>',
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Lesson 5
         {
             title: { en: 'Studying Using AI', hi: 'एआई का उपयोग करके अध्ययन', mr: 'एआय वापरून अभ्यास' },
-            videoLink: { en: 'https://www.youtube.com/embed/placeholder_en_5', hi: 'https://www.youtube.com/embed/placeholder_hi_5', mr: 'https://www.youtube.com/embed/placeholder_mr_5' },
+            videoLink: { en: 'https://www.youtube.com/embed/5z0k-5-tLUk', hi: 'https://www.youtube.com/embed/5z0k-5-tLUk', mr: 'https://www.youtube.com/embed/5z0k-5-tLUk' },
             description: { 
                 en: 'For more information, visit: <a href="https://notebooklm.google/" target="_blank">NotebookLM</a>',
                 hi: 'अधिक जानकारी के लिए, यहां जाएं: <a href="https://notebooklm.google/" target="_blank">NotebookLM</a>',
