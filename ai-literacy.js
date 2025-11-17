@@ -360,9 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function changeLanguage() {
         localStorage.removeItem('aiLiteracyLanguage');
-        localStorage.removeItem('aiLiteracyProgress');
         state.language = null;
-        state.currentLesson = 0;
         render();
     }
 
