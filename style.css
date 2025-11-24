@@ -2,14 +2,18 @@
 :root {
     --dark-bg: #111111;
     --text-color: #E0E0E0;
-    --accent-color: #A7FF1A; /* Lime Green */
+    --accent-color: #A7FF1A;
+    /* Lime Green */
     --light-gray: #A0A0A0;
 }
 
 html {
     box-sizing: border-box;
 }
-*, *:before, *:after {
+
+*,
+*:before,
+*:after {
     box-sizing: inherit;
 }
 
@@ -32,7 +36,8 @@ body {
 
 /* The central content card with glass effect */
 .glass-card {
-    background-color: rgba(26, 26, 26, 0.5); /* Slightly darker glass */
+    background-color: rgba(26, 26, 26, 0.5);
+    /* Slightly darker glass */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 24px;
@@ -46,8 +51,15 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Main headline (Your Name) */
@@ -130,39 +142,30 @@ body {
     transform: translateY(-2px);
 }
 
-/* ============================================= */
-/* !!! NEW STYLES FOR THE "COMING SOON" LINK !!! */
-/* ============================================= */
-.project-link.coming-soon {
-    background-color: #282828;
-    opacity: 0.6;
-    cursor: default;
-}
-
-.project-link.coming-soon:hover {
-    background-color: #282828; /* Keep the same background on hover */
-    transform: none; /* Disable the lift effect */
-}
-
-
 /* Responsive adjustments for mobile devices */
 @media (max-width: 768px) {
     .headline {
         font-size: 2.5em;
     }
+
     .about-text {
         font-size: 1.1em;
     }
+
     .glass-card {
         padding: 30px 25px;
     }
+
     .action-links {
-        flex-direction: column; /* Stack links vertically on small screens */
+        flex-direction: column;
+        /* Stack links vertically on small screens */
         align-items: center;
         gap: 15px;
     }
+
     .action-link {
         width: 100%;
-        max-width: 300px; /* Give a max-width for better appearance */
+        max-width: 300px;
+        /* Give a max-width for better appearance */
     }
 }
