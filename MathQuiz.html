@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Vector Algebra Challenge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        window.MathJax = {
+            loader: { load: ['input/tex', 'output/svg'] },
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                packages: {'[+]': ['ams']}
+            },
+            svg: {
+                fontCache: 'global',
+                scale: 1.1
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --card-bg: #161616;
+            --acid-green: #ccff00;
+            --error-red: #ff3333;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1a1;
+            --border-color: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 500px;
+        }
+
+        /* Header */
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .progress-pill {
+            display: inline-block;
+            background: #222;
+            color: var(--acid-green);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #333;
+        }
+
+        /* Question Area */
+        .question-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0 40px 0;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #eee;
+            margin-bottom: 15px;
+            text-shadow: none; /* Fix for blurry math */
+        }
+
+        .feedback-msg {
+            height: 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        /* MathJax Overrides */
+        mjx-container {
+            text-shadow: none !important;
+            color: #fff !important;
+            outline: none !important;
+        }
+        mjx-container svg path {
+            fill: #fff !important;
+        }
+
+        /* Options */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            width: 100%;
+        }
+
+        @media (min-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .option-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+        }
+
+        .option-btn:hover {
+            border-color: var(--acid-green);
+            color: var(--acid-green);
+            background: rgba(204, 255, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .option-btn:hover mjx-container svg path {
+            fill: var(--acid-green) !important;
+        }
+
+        /* Answer States */
+        .option-btn.correct {
+            border-color: var(--acid-green) !important;
+            background-color: rgba(204, 255, 0, 0.15) !important;
+            color: var(--acid-green) !important;
+        }
+        .option-btn.correct mjx-container svg path {
+            fill: var(--acid-green) !important;
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--error-red) !important;
+            background-color: rgba(255, 51, 51, 0.15) !important;
+            color: var(--error-red) !important;
+        }
+        .option-btn.incorrect mjx-container svg path {
+            fill: var(--error-red) !important;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+            transform: none !important;
+            pointer-events: none;
+        }
+
+        /* Results */
+        .result-screen {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .score-display {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--acid-green);
+            margin-bottom: 10px;
+        }
+
+        .restart-btn {
+            background-color: var(--acid-green);
+            color: #000;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: opacity 0.3s;
+        }
+
+        .restart-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="quiz-ui">
+        <div class="header">
+            <h1>Vector Algebra</h1>
+            <p>73 Questions. Zero Assistance. Good Luck.</p>
+            <div class="progress-pill">Q <span id="q-current">1</span> / <span id="q-total">73</span></div>
+        </div>
+
+        <div class="question-area">
+            <div class="question-text" id="question-text">Loading Data...</div>
+            <div id="feedback" class="feedback-msg"></div>
+        </div>
+
+        <div class="options-grid" id="options-container">
+            </div>
+    </div>
+
+    <div class="result-screen" id="result-ui">
+        <div class="score-display" id="final-score">0%</div>
+        <div style="font-size: 1.2rem; color: #aaa;">Final Accuracy</div>
+        <div id="result-details" style="margin-top: 10px; color: #fff;"></div>
+        <button class="restart-btn" onclick="location.reload()">Retry</button>
+    </div>
+</div>
+
+<script>
+    // Data parsed from your text (Examples 1-8 + Questions 1-65)
+    // 0 = a, 1 = b, 2 = c, 3 = d
+    const quizData = [
+        // --- Illustrative Examples ---
+        { q: "If OACB is a parallelogram with $\\vec{OC}=\\vec{a}$ and $\\vec{AB}=\\vec{b}$, then $\\vec{OA}$ is equal to:", opt: ["$\\vec{a}+\\vec{b}$", "$\\vec{a}-\\vec{b}$", "$\\frac{1}{2}(\\vec{a}-\\vec{b})$", "$\\frac{1}{2}(\\vec{b}-\\vec{a})$"], ans: 2 },
+        { q: "If three points A, B and C with position vectors $\\hat{i}+x\\hat{j}+3\\hat{k}$, $3\\hat{i}+4\\hat{j}+7\\hat{k}$ and $y\\hat{i}-2\\hat{j}-5\\hat{k}$ respectively are collinear, then $(x,y)=$", opt: ["$(-2,3)$", "$(2,-3)$", "$(-2,-3)$", "$(-3,2)$"], ans: 1 },
+        { q: "If $\\vec{a}$ and $\\vec{b}$ are unit vectors, then which of the following values of $\\vec{a}\\cdot\\vec{b}$ is not possible?", opt: ["$\\frac{1}{\\sqrt{2}}$", "$-\\frac{1}{2}$", "$\\frac{\\sqrt{3}}{2}$", "$\\sqrt{3}$"], ans: 3 },
+        { q: "If the vectors $\\hat{i}-2x\\hat{j}+3y\\hat{k}$ and $\\hat{i}+2x\\hat{j}-3y\\hat{k}$ are perpendicular, then the locus of $(x,y)$ is", opt: ["a circle", "an ellipse", "a hyperbola", "none of these"], ans: 1 },
+        { q: "If $\\vec{a}$ and $\\vec{b}$ are unit vectors inclined at an angle $\\alpha$, then the value of $|\\vec{a}-\\vec{b}|$ is", opt: ["$2\\sin\\frac{\\alpha}{2}$", "$2\\cos\\frac{\\alpha}{2}$", "$2\\sin\\alpha$", "$2\\cos\\alpha$"], ans: 0 },
+        { q: "If $\\vec{a}=\\hat{i}+\\hat{j}+p\\hat{k}$ and $\\vec{b}=\\hat{i}+\\hat{j}+\\hat{k}$, then $|\\vec{a}+\\vec{b}|=|\\vec{a}|+|\\vec{b}|$ holds for", opt: ["all real p", "no real p", "$p=-1$", "$p=1$"], ans: 3 },
+        { q: "If $\\vec{a}$ and $\\vec{b}$ are inclined at an angle of 120° and $|\\vec{a}|=1$, $|\\vec{b}|=2$ then $((\\vec{a}+3\\vec{b})\\times(3\\vec{a}-\\vec{b}))^{2}$ is equal to", opt: ["225", "250", "275", "300"], ans: 3 },
+        { q: "If $\\vec{a}, \\vec{b}, \\vec{c}$ are three vectors such that $|\\vec{a}+\\vec{b}+\\vec{c}|=1, \\vec{c}=\\lambda(\\vec{a}\\times\\vec{b})$, $\\lambda$ is non-zero and $|\\vec{a}|=\\frac{1}{\\sqrt{6}}$, $|\\vec{b}|=\\frac{1}{\\sqrt{2}}$, $|\\vec{c}|=\\frac{1}{\\sqrt{3}}$ then the angle between $\\vec{a}$ and $\\vec{b}$ is", opt: ["$\\frac{\\pi}{4}$", "$\\frac{\\pi}{3}$", "$\\frac{\\pi}{2}$", "$\\frac{2\\pi}{3}$"], ans: 2 },
+
+        // --- MCQs 1-65 ---
+        { q: "The magnitude of the vector $6\\hat{i}-2\\hat{j}+3\\hat{k}$ is", opt: ["5 units", "7 units", "11 units", "1 unit"], ans: 1 },
+        { q: "The vector in the direction of the vector $\\hat{i}-2\\hat{j}+2\\hat{k}$ that has magnitude 9 units is", opt: ["$\\hat{i}-2\\hat{j}+2\\hat{k}$", "$\\frac{\\hat{i}-2\\hat{j}+2\\hat{k}}{3}$", "$3(\\hat{i}-2\\hat{j}+2\\hat{k})$", "$9(\\hat{i}-2\\hat{j}+2\\hat{k})$"], ans: 2 },
+        { q: "If $\\vec{a}$ is a non-zero vector and m is a non-zero scalar, then $m\\vec{a}$ is a unit vector if", opt: ["$m=\\pm1$", "$m=|\\vec{a}|$", "$m=\\pm|\\vec{a}|$", "$m=\\pm\\frac{1}{|\\vec{a}|}$"], ans: 3 },
+        { q: "If $|\\vec{a}|=4$ and $-3\\le k\\le2$, then the range of $|k\\vec{a}|$ is", opt: ["$[0,8]$", "$[0,12]$", "$[-12,8]$", "$[8,12]$"], ans: 1 },
+        { q: "The vector having initial and terminal points as $(2,5,0)$ and $(-3,7,4)$ respectively is", opt: ["$-5\\hat{i}+2\\hat{j}+4\\hat{k}$", "$5\\hat{i}-2\\hat{j}-4\\hat{k}$", "$5\\hat{i}+2\\hat{j}+4\\hat{k}$", "$-5\\hat{i}+2\\hat{j}-4\\hat{k}$"], ans: 0 },
+        { q: "If the sides AB and AD of a parallelogram ABCD are represented by vectors $2\\hat{i}+4\\hat{j}-5\\hat{k}$ and $\\hat{i}+2\\hat{j}+3\\hat{k}$, then a unit vector along $\\vec{AC}$ is", opt: ["$\\frac{1}{3}(3\\hat{i}-6\\hat{j}-2\\hat{k})$", "$\\frac{1}{3}(3\\hat{i}+6\\hat{j}-2\\hat{k})$", "$\\frac{1}{7}(3\\hat{i}-6\\hat{j}-2\\hat{k})$", "$\\frac{1}{7}(3\\hat{i}+6\\hat{j}-2\\hat{k})$"], ans: 3 },
+        { q: "The position vector of the point which divides the line segment joining points with position vectors $2\\vec{a}-3\\vec{b}$ and $\\vec{a}+\\vec{b}$ in the ratio 3:1 is", opt: ["$\\frac{3\\vec{a}-2\\vec{b}}{4}$", "$\\frac{7\\vec{a}-8\\vec{b}}{4}$", "$\\frac{3\\vec{a}}{4}$", "$\\frac{5\\vec{a}}{4}$"], ans: 3 },
+        { q: "If position vector of point A is $\\vec{a}+2\\vec{b}$ and point P with position vector $\\vec{a}$ divides AB in ratio 2:3, then position vector of point B is", opt: ["$2\\vec{a}-\\vec{b}$", "$\\vec{b}-2\\vec{a}$", "$\\vec{a}-3\\vec{b}$", "$\\vec{b}$"], ans: 2 },
+        { q: "The value of $\\lambda$ for which vectors $3\\hat{i}-6\\hat{j}+\\hat{k}$ and $2\\hat{i}-4\\hat{j}+\\lambda\\hat{k}$ are parallel is", opt: ["$\\frac{3}{2}$", "$\\frac{2}{3}$", "$\\frac{5}{2}$", "$\\frac{2}{5}$"], ans: 1 },
+        { q: "If $\\vec{a}=(1,-1)$ and $\\vec{b}=(-2,m)$ are collinear vectors, then m is equal to", opt: ["2", "3", "4", "-2"], ans: 0 },
+        { q: "If A, B, C, D and E are five coplanar points, then $\\vec{DA}+\\vec{DB}+\\vec{DC}+\\vec{AE}+\\vec{BE}+\\vec{CE}$ is equal to", opt: ["$\\vec{DE}$", "$3\\vec{DE}$", "$2\\vec{DE}$", "$4\\vec{ED}$"], ans: 1 },
+        { q: "If G is the centroid of $\\triangle ABC$, then $\\vec{GA}+\\vec{GB}+\\vec{GC}$ is equal to", opt: ["$\\vec{0}$", "$\\vec{a}+\\vec{b}+\\vec{c}$", "$\\frac{\\vec{a}+\\vec{b}+\\vec{c}}{3}$", "$\\frac{\\vec{a}-\\vec{c}}{3}$"], ans: 0 },
+        { q: "The angle between vectors $\\vec{a}$ and $\\vec{b}$ with magnitudes $\\sqrt{3}$ and 4, and $\\vec{a}\\cdot\\vec{b}=2\\sqrt{3}$ is", opt: ["$\\frac{2\\pi}{3}$", "$\\frac{\\pi}{2}$", "$\\frac{\\pi}{3}$", "$\\frac{5\\pi}{6}$"], ans: 2 },
+        { q: "The angle between the vectors $\\hat{i}-\\hat{j}$ and $\\hat{j}-\\hat{k}$ is", opt: ["$-\\frac{\\pi}{3}$", "$\\frac{2\\pi}{3}$", "$\\frac{\\pi}{6}$", "$\\frac{\\pi}{3}$"], ans: 1 },
+        { q: "The value of p for which the vectors $2\\hat{i}+p\\hat{j}+\\hat{k}$ and $-4\\hat{i}-6\\hat{j}+26\\hat{k}$ are perpendicular to each other is", opt: ["3", "-3", "0, -4", "$\\frac{17}{3}$"], ans: 0 },
+        { q: "If the angle between $\\hat{i}+\\hat{k}$ and $\\hat{i}+\\hat{j}+\\lambda\\hat{k}$ is $\\frac{\\pi}{3}$, then values of $\\lambda$ are", opt: ["0, 2", "0, -2", "0, -4", "2, -2"], ans: 2 },
+        { q: "If vertices A, B, C have position vectors $2\\hat{i}-\\hat{j}+\\hat{k}$, $\\hat{i}-3\\hat{j}-5\\hat{k}$, $\\alpha\\hat{i}-3\\hat{j}+\\hat{k}$ and $\\angle C=\\frac{\\pi}{2}$, then $\\alpha$ is", opt: ["2, -1", "2, 1", "-2, 1", "-2, -1"], ans: 1 },
+        { q: "If $\\vec{a}, \\vec{b}$ are unit vectors, the angle between them for $\\sqrt{3}\\vec{a}-\\vec{b}$ to be a unit vector is", opt: ["30°", "45°", "60°", "90°"], ans: 0 },
+        { q: "If $\\theta$ is the angle between $\\vec{a}$ and $\\vec{b}$, then $\\vec{a}\\cdot\\vec{b}\\ge0$ only when", opt: ["$0<\\theta<\\frac{\\pi}{2}$", "$0\\le\\theta\\le\\frac{\\pi}{2}$", "$0<\\theta<\\pi$", "$0\\le\\theta\\le\\pi$"], ans: 1 },
+        { q: "Projection of vector $2\\hat{i}+3\\hat{j}$ on vector $3\\hat{i}-2\\hat{j}$ is", opt: ["0", "12", "$\\frac{2}{3}$", "$\\frac{1}{3}$"], ans: 0 },
+        { q: "The projection of vector $\\vec{a}=2\\hat{i}-\\hat{j}+\\hat{k}$ along $\\vec{b}=\\hat{i}+2\\hat{j}+2\\hat{k}$ is", opt: ["2", "$\\sqrt{6}$", "$\\frac{2}{3}$", "$\\frac{1}{3}$"], ans: 2 },
+        { q: "If $\\vec{a}=2\\hat{i}+\\hat{j}+2\\hat{k}$ and $\\vec{b}=5\\hat{i}-3\\hat{j}+\\hat{k}$ then projection of $\\vec{b}$ on $\\vec{a}$ is", opt: ["3", "4", "5", "1"], ans: 0 },
+        { q: "If $|\\vec{a}|=3$ and $|\\vec{b}|=4$, value of $\\lambda$ for which $\\vec{a}+\\lambda\\vec{b}$ and $\\vec{a}-\\lambda\\vec{b}$ are perpendicular is", opt: ["$\\frac{9}{16}$", "$\\frac{3}{4}$", "$\\frac{3}{2}$", "$\\frac{4}{3}$"], ans: 1 },
+        { q: "$(\\vec{a}\\cdot\\hat{i})^{2}+(\\vec{a}\\cdot\\hat{j})^{2}+(\\vec{a}\\cdot\\hat{k})^{2}$ is equal to", opt: ["1", "$\\vec{a}$", "$-\\vec{a}$", "$|\\vec{a}|^2$"], ans: 3 },
+        { q: "If $\\vec{a}\\cdot\\hat{i}=\\vec{a}\\cdot(\\hat{i}+\\hat{j})=\\vec{a}\\cdot(\\hat{i}+\\hat{j}+\\hat{k})=1$ then $\\vec{a}$ is equal to", opt: ["$\\vec{0}$", "$\\hat{i}$", "$\\hat{j}$", "$\\hat{i}+\\hat{j}+\\hat{k}$"], ans: 1 },
+        { q: "If $|\\vec{a}\\times\\vec{b}|^{2}+|\\vec{a}\\cdot\\vec{b}|^{2}=144$ and $|\\vec{a}|=4$ then $|\\vec{b}|$ is equal to", opt: ["12", "3", "8", "16"], ans: 1 },
+        { q: "If $|\\vec{a}|=3, |\\vec{b}|=4$ and $|\\vec{a}\\times\\vec{b}|=10$, then $|\\vec{a}\\cdot\\vec{b}|^{2}$ is equal to", opt: ["22", "88", "44", "none"], ans: 2 },
+        { q: "If $|\\vec{a}|=10, |\\vec{b}|=2$ and $\\vec{a}\\cdot\\vec{b}=12$ then $|\\vec{a}\\times\\vec{b}|$ is equal to", opt: ["4", "10", "20", "16"], ans: 3 },
+        { q: "If $|\\vec{a}\\times\\vec{b}|=4$ and $|\\vec{a}\\cdot\\vec{b}|=2$, then $|\\vec{a}|^{2}|\\vec{b}|^{2}$ is equal to", opt: ["6", "8", "20", "none"], ans: 2 },
+        { q: "If $|\\vec{a}|=8, |\\vec{b}|=3$ and $|\\vec{a}\\times\\vec{b}|=12$, then value of $\\vec{a}\\cdot\\vec{b}$ is", opt: ["$12\\sqrt{3}$ only", "$-12\\sqrt{3}$ only", "$\\pm 12\\sqrt{3}$", "none"], ans: 2 },
+        { q: "If $\\vec{a}+\\vec{b}+\\vec{c}=\\vec{0}$, $|\\vec{a}|=\\sqrt{37}, |\\vec{b}|=3, |\\vec{c}|=4$ then angle between $\\vec{b}$ and $\\vec{c}$ is", opt: ["90°", "60°", "45°", "30°"], ans: 1 },
+        { q: "The number of unit vectors perpendicular to $\\vec{a}=2\\hat{i}+\\hat{j}+2\\hat{k}$ and $\\vec{b}=\\hat{j}+\\hat{k}$ is", opt: ["one", "two", "three", "infinite"], ans: 1 },
+        { q: "Unit vector perpendicular to $\\hat{i}-\\hat{j}$ and $\\hat{i}+\\hat{j}$ is", opt: ["$\\hat{k}$", "$-\\hat{k}$", "$\\frac{\\hat{i}-\\hat{j}}{\\sqrt{2}}$", "$\\frac{\\hat{i}+\\hat{j}}{\\sqrt{2}}$"], ans: 0 },
+        { q: "Unit vectors perpendicular to plane of vectors $\\vec{a}=2\\hat{i}-6\\hat{j}-3\\hat{k}$ and $\\vec{b}=4\\hat{i}+3\\hat{j}-\\hat{k}$ are", opt: ["$\\pm\\frac{\\hat{i}+3\\hat{j}-\\hat{k}}{\\sqrt{26}}$", "$\\pm\\frac{2\\hat{i}-6\\hat{j}-3\\hat{k}}{7}$", "$\\pm\\frac{2\\hat{i}-3\\hat{j}+6\\hat{k}}{7}$", "$\\pm\\frac{3\\hat{i}-2\\hat{j}+6\\hat{k}}{7}$"], ans: 3 },
+        { q: "Vector of magnitude 5 and perpendicular to $\\hat{i}-2\\hat{j}+\\hat{k}$ and $2\\hat{i}+\\hat{j}-3\\hat{k}$ is", opt: ["$\\frac{5\\sqrt{3}(\\hat{i}+\\hat{j}+\\hat{k})}{3}$", "$\\frac{5\\sqrt{3}(\\hat{i}-\\hat{j}+\\hat{k})}{3}$", "$\\frac{5\\sqrt{3}(\\hat{i}-\\hat{j}-\\hat{k})}{3}$", "$\\frac{5\\sqrt{3}(\\hat{i}+\\hat{j}-\\hat{k})}{\\sqrt{3}}$"], ans: 0 },
+        { q: "Area of parallelogram whose adjacent sides are $\\hat{i}+\\hat{k}$ and $2\\hat{i}+\\hat{j}+\\hat{k}$ is", opt: ["$\\sqrt{2}$", "$\\sqrt{3}$", "3", "4"], ans: 1 },
+        { q: "If $\\vec{AB}\\times\\vec{AC}=2\\hat{i}-4\\hat{j}+4\\hat{k}$, then area of $\\triangle ABC$ is", opt: ["3 sq. units", "6 sq. units", "9 sq. units", "16 sq. units"], ans: 0 },
+        { q: "Vectors from origin to points A and B are $\\vec{a}=2\\hat{i}-3\\hat{j}+2\\hat{k}$ and $\\vec{b}=2\\hat{i}+3\\hat{j}+\\hat{k}$, then area of $\\triangle OAB$ is", opt: ["$\\sqrt{340}$", "5", "$\\sqrt{229}$", "$\\frac{1}{2}\\sqrt{229}$"], ans: 3 },
+        { q: "Area of triangle having vertices with position vectors $\\hat{i}-2\\hat{j}+3\\hat{k}$, $-2\\hat{i}+3\\hat{j}-\\hat{k}$ and $4\\hat{i}-7\\hat{j}+7\\hat{k}$ is", opt: ["36", "0", "39", "11"], ans: 1 },
+        { q: "If $\\vec{a}, \\vec{b}, \\vec{c}$ are unit vectors such that $\\vec{a}+\\vec{b}+\\vec{c}=0$, then $\\vec{a}\\cdot\\vec{b}+\\vec{b}\\cdot\\vec{c}+\\vec{c}\\cdot\\vec{a}$ is", opt: ["1", "$\\frac{3}{2}$", "$-\\frac{3}{2}$", "none"], ans: 2 },
+        { q: "If $\\vec{a}+\\vec{b}+\\vec{c}=0$ and $|\\vec{a}|=2, |\\vec{b}|=3, |\\vec{c}|=5$ then $\\vec{a}\\cdot\\vec{b}+\\vec{b}\\cdot\\vec{c}+\\vec{c}\\cdot\\vec{a}$ is", opt: ["0", "1", "38", "-19"], ans: 3 },
+        { q: "If $|\\vec{a}|=|\\vec{b}|=1$ and $|\\vec{a}\\times\\vec{b}|=1$ then", opt: ["$\\vec{a}\\perp\\vec{b}$", "$\\vec{a}||\\vec{b}$", "$\\vec{a}\\cdot\\vec{b}=1$", "none"], ans: 0 },
+        { q: "If $\\vec{a}=\\hat{i}+\\hat{j}+\\hat{k}$, $\\vec{a}\\cdot\\vec{b}=1$ and $\\vec{a}\\times\\vec{b}=\\hat{j}-\\hat{k}$ then $\\vec{b}$ is", opt: ["$\\hat{i}-\\hat{j}+\\hat{k}$", "$2\\hat{i}-\\hat{k}$", "$2\\hat{i}$", "$\\hat{i}$"], ans: 3 },
+        { q: "If $|\\vec{a}|=2, |\\vec{b}|=7$ and $\\vec{a}\\times\\vec{b}=3\\hat{i}+2\\hat{j}-6\\hat{k}$, then angle between $\\vec{a}$ and $\\vec{b}$ is", opt: ["$\\frac{\\pi}{6}$", "$\\frac{\\pi}{4}$", "$\\frac{\\pi}{3}$", "$\\frac{2\\pi}{3}$"], ans: 0 },
+        { q: "If $(\\vec{a}+\\vec{b})\\perp\\vec{b}$ and $(\\vec{a}+2\\vec{b})\\perp\\vec{a}$, then", opt: ["$|\\vec{a}|=|\\vec{b}|$", "$2|\\vec{a}|=|\\vec{b}|$", "$|\\vec{a}|=2|\\vec{b}|$", "$|\\vec{a}|=\\sqrt{2}|\\vec{b}|$"], ans: 3 },
+        { q: "If ABCD is a rhombus whose diagonals intersect at E, then $\\vec{EA}+\\vec{EB}+\\vec{EC}+\\vec{ED}$ equals", opt: ["$\\vec{0}$", "$\\vec{AD}$", "$2\\vec{BC}$", "$2\\vec{AD}$"], ans: 0 },
+        { q: "If $\\hat{i}, \\hat{j}, \\hat{k}$ are unit vectors along three mutually perpendicular directions, then", opt: ["$\\hat{i}\\cdot\\hat{j}=1$", "$\\hat{j}\\times\\hat{j}=1$", "$\\hat{i}\\cdot\\hat{k}=0$", "$\\hat{i}\\times\\hat{k}=0$"], ans: 2 },
+        { q: "Area of triangle formed by vertices O, A, B where $\\vec{OA}=\\hat{i}+2\\hat{j}+3\\hat{k}$ and $\\vec{OB}=-3\\hat{i}-2\\hat{j}+\\hat{k}$ is", opt: ["$3\\sqrt{5}$", "$5\\sqrt{5}$", "$6\\sqrt{5}$", "4"], ans: 0 },
+        { q: "Vectors $3\\hat{i}-\\hat{j}+2\\hat{k}, 2\\hat{i}+\\hat{j}+3\\hat{k}$ and $\\hat{i}+\\lambda\\hat{j}-\\hat{k}$ are coplanar if $\\lambda$ is", opt: ["-2", "0", "2", "real"], ans: 0 },
+        { q: "If projection of $\\vec{a}=\\hat{i}-2\\hat{j}+3\\hat{k}$ on $\\vec{b}=2\\hat{i}+\\lambda\\hat{k}$ is zero, then $\\lambda$ is", opt: ["0", "1", "$-\\frac{2}{3}$", "$-\\frac{3}{2}$"], ans: 2 },
+        { q: "If $\\vec{a}\\cdot\\vec{b}=\\frac{1}{2}|\\vec{a}||\\vec{b}|$ then angle between $\\vec{a}$ and $\\vec{b}$ is", opt: ["0°", "30°", "60°", "90°"], ans: 2 },
+        { q: "The value of $(\\hat{i}\\times\\hat{j})\\cdot\\hat{j}+(\\hat{j}\\times\\hat{i})\\cdot\\hat{k}$ is", opt: ["2", "0", "1", "-1"], ans: 3 },
+        { q: "If $\\vec{a}+\\vec{b}=\\hat{i}$ and $\\vec{a}=2\\hat{i}-2\\hat{j}+2\\hat{k}$, then $|\\vec{b}|$ equals", opt: ["$\\sqrt{14}$", "3", "$\\sqrt{12}$", "$\\sqrt{17}$"], ans: 1 },
+        { q: "If vector $\\hat{i}-b\\hat{j}+\\hat{k}$ is equally inclined to coordinate axes, then b is", opt: ["-1", "1", "$-\\sqrt{3}$", "$-\\frac{1}{\\sqrt{3}}$"], ans: 0 },
+        { q: "Mid-point of AB is $3\\hat{i}+2\\hat{j}-3\\hat{k}$. If A is $2\\hat{i}+3\\hat{j}-4\\hat{k}$, then B is", opt: ["$\\frac{5\\hat{i}}{2}...$", "$4\\hat{i}+\\hat{j}-2\\hat{k}$", "$5\\hat{i}+5\\hat{j}-7\\hat{k}$", "$\\frac{\\hat{i}}{2}...$"], ans: 1 },
+        { q: "In $\\triangle ABC$, $\\vec{BA}=2\\vec{a}$ and $\\vec{BC}=3\\vec{b}$ then $\\vec{AC}$ is", opt: ["$2\\vec{a}+3\\vec{b}$", "$2\\vec{a}-3\\vec{b}$", "$3\\vec{b}-2\\vec{a}$", "$-2\\vec{a}-3\\vec{b}$"], ans: 2 },
+        { q: "Three consecutive vertices of a parallelogram are A, B, C. Position vector of D is given by", opt: ["$-3\\hat{i}-5\\hat{j}-10\\hat{k}$", "$21\\hat{i}+3\\hat{j}$", "$11\\hat{i}+9\\hat{j}-2\\hat{k}$", "$-11\\hat{i}-9\\hat{j}+2\\hat{k}$"], ans: 2 },
+        { q: "Projection of $\\vec{a}$ on $\\vec{b}$ is 0. The angle between $\\vec{a}$ and $\\vec{b}$ is", opt: ["$\\frac{\\pi}{2}$", "$\\pi$", "$\\frac{\\pi}{4}$", "0"], ans: 0 },
+        { q: "If angle between $\\vec{a}, \\vec{b}$ is $\\frac{\\pi}{4}$ and $|\\vec{a}\\times\\vec{b}|=1$, then $\\vec{a}\\cdot\\vec{b}$ is", opt: ["-1", "1", "$\\frac{1}{\\sqrt{2}}$", "$\\sqrt{2}$"], ans: 1 },
+        { q: "In $\\triangle ABC$, $\\vec{AB}=\\hat{i}+\\hat{j}+2\\hat{k}$ and $\\vec{AC}=3\\hat{i}-\\hat{j}+4\\hat{k}$. If D is mid-point of BC, $\\vec{AD}$ is", opt: ["$4\\hat{i}+6\\hat{k}$", "$2\\hat{i}-2\\hat{j}+2\\hat{k}$", "$\\hat{i}-\\hat{j}+\\hat{k}$", "$2\\hat{i}+3\\hat{k}$"], ans: 3 },
+        { q: "Sine of angle between $\\vec{a}=3\\hat{i}+\\hat{j}+2\\hat{k}$ and $\\vec{b}=\\hat{i}+\\hat{j}+2\\hat{k}$ is", opt: ["$\\sqrt{\\frac{5}{21}}$", "$\\sqrt{\\frac{3}{21}}$", "$\\frac{5}{\\sqrt{21}}$", "$\\frac{4}{\\sqrt{21}}$"], ans: 0 },
+        { q: "Two vectors $\\vec{a}$ and $\\vec{b}$ are collinear if", opt: ["$\\Sigma a_ib_i=0$", "$a_i=b_i$", "$\\frac{a_1}{b_1}=\\frac{a_2}{b_2}=\\frac{a_3}{b_3}$", "$\\Sigma a_i = \\Sigma b_i$"], ans: 1 },
+        { q: "Unit vector $\\hat{a}$ makes equal acute angles on axes. Projection of $\\hat{a}$ on $\\vec{b}=5\\hat{i}+7\\hat{j}-\\hat{k}$ is", opt: ["$\\frac{11}{15}$", "$\\frac{11}{5\\sqrt{3}}$", "$\\frac{4}{5}$", "$\\frac{3}{5\\sqrt{3}}$"], ans: 0 },
+        { q: "If $\\vec{a}\\cdot\\hat{i}=\\vec{a}\\cdot(\\hat{i}+\\hat{j})=\\vec{a}\\cdot(\\hat{i}+\\hat{j}+\\hat{k})=1$ then $\\vec{a}$ is", opt: ["$\\hat{k}$", "$\\hat{i}$", "$\\hat{j}$", "$\\hat{i}+\\hat{j}+\\hat{k}$"], ans: 1 },
+        { q: "Vector makes $\\frac{\\pi}{4}$ with x and y axes, angle with positive z-axis is", opt: ["$\\frac{\\pi}{4}$", "$\\frac{3\\pi}{4}$", "$\\frac{\\pi}{2}$", "0"], ans: 2 }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+
+    const ui = {
+        questionText: document.getElementById('question-text'),
+        optionsContainer: document.getElementById('options-container'),
+        qCurrent: document.getElementById('q-current'),
+        qTotal: document.getElementById('q-total'),
+        quizUI: document.getElementById('quiz-ui'),
+        resultUI: document.getElementById('result-ui'),
+        finalScore: document.getElementById('final-score'),
+        resultDetails: document.getElementById('result-details'),
+        feedback: document.getElementById('feedback')
+    };
+
+    ui.qTotal.textContent = quizData.length;
+
+    function loadQuestion() {
+        if (currentIdx >= quizData.length) {
+            showResult();
+            return;
+        }
+
+        const data = quizData[currentIdx];
+        ui.qCurrent.textContent = currentIdx + 1;
+        ui.questionText.innerHTML = data.q;
+        ui.optionsContainer.innerHTML = '';
+        
+        ui.feedback.style.opacity = '0';
+        ui.feedback.innerText = '';
+
+        data.opt.forEach((optionHTML, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = optionHTML;
+            btn.onclick = () => handleAnswer(index, btn);
+            ui.optionsContainer.appendChild(btn);
+        });
+
+        // Trigger MathJax
+        if (window.MathJax) {
+            MathJax.typesetPromise([ui.questionText, ui.optionsContainer])
+                .catch(err => console.log('MathJax error:', err));
+        }
+    }
+
+    function handleAnswer(selectedIndex, btn) {
+        // Lock all buttons
+        const allBtns = document.querySelectorAll('.option-btn');
+        allBtns.forEach(b => b.disabled = true);
+
+        const correctIndex = quizData[currentIdx].ans;
+        const feedbackEl = ui.feedback;
+
+        if (selectedIndex === correctIndex) {
+            score++;
+            btn.classList.add('correct');
+            feedbackEl.innerText = "CORRECT";
+            feedbackEl.style.color = "var(--acid-green)";
+        } else {
+            btn.classList.add('incorrect');
+            feedbackEl.innerText = "INCORRECT";
+            feedbackEl.style.color = "var(--error-red)";
+            // Note: We do NOT highlight the correct answer here, as requested.
+        }
+
+        feedbackEl.style.opacity = '1';
+
+        // Auto-advance after 1 second
+        setTimeout(() => {
+            currentIdx++;
+            loadQuestion();
+        }, 1000);
+    }
+
+    function showResult() {
+        ui.quizUI.style.display = 'none';
+        ui.resultUI.style.display = 'block';
+        
+        const accuracy = Math.round((score / quizData.length) * 100);
+        ui.finalScore.textContent = `${accuracy}%`;
+        ui.resultDetails.textContent = `You answered ${score} out of ${quizData.length} questions correctly.`;
+    }
+
+    // Start
+    loadQuestion();
+
+</script>
+
+</body>
+</html>
