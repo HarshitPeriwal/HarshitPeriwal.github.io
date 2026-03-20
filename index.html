@@ -6,42 +6,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Harshit Periwal - Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
+    <div class="background-dots"></div>
+    <div class="background-dots-glitch"></div>
+    <main class="comic-container">
+        <!-- Hero Section -->
+        <section class="panel hero-panel">
+            <div class="hero-content-left">
+                <div>
+                    <h1 class="headline action-font glitch" data-text="Harshit Periwal">Harshit Periwal</h1>
+                </div>
+                <p class="monospace-subtext glitch" data-text="Developer">Developer</p>
+                <p class="about-text">
+                    I’m an incoming freshman at X University with a strong passion for AI and creativity. I build impactful
+                    projects like the AI-powered “Eco Bin” app and the award-winning educational game “Garry’s Escape.”
+                    Driven by curiosity, my goal is to make technology accessible for everyone.
+                </p>
 
-    <main class="main-container">
-        <div class="glass-card">
-            <h1 class="headline">
-                Harshit Periwal
-            </h1>
-            <p class="about-text">
-                I'm a high school innovator passionate about AI and creativity. I build impactful projects like the
-                AI-powered 'Eco Bin' app and the award-winning educational game 'Garry's Escape.' Driven by curiosity,
-                my goal is to make technology accessible for everyone.
-            </p>
-            <div class="action-links">
-                <a href="Harshit_Periwal_Resume.pdf" class="action-link" target="_blank">View Resume</a>
-                <a href="harshitgpt.html" class="action-link" target="_blank">Chat with HarshitGPT</a>
-            </div>
-
-            <div class="featured-projects">
-                <span class="featured-title">Creations & Works:</span>
-                <div class="project-links-wrapper">
-                    <a href="garrys-escape-build/index.html" class="project-link" target="_blank">Play Garry's
-                        Escape</a>
-                    <a href="eco-bin-build/index.html" class="project-link" target="_blank">Launch Eco Bin</a>
-                    <a href="ai-literacy.html" class="project-link" target="_blank">AI Literacy Drive</a>
-                    <a href="https://www.youtube.com/@HarshitPeriwal" class="project-link" target="_blank">View
-                        YouTube</a>
-                    <a href="Research Paper.pdf" class="project-link" target="_blank">View Research Paper</a>
+                <div class="action-buttons">
+                    <a href="Harshit_Periwal_Resume.pdf" class="slanted-btn action-font red-shadow" target="_blank">
+                        <span class="btn-text glitch" data-text="View Resume">View Resume</span>
+                    </a>
+                    <div class="kirby-krackle-container">
+                        <a href="harshitgpt.html" class="slanted-btn action-font green-shadow" target="_blank">
+                            <span class="btn-text glitch" data-text="Chat with HarshitGPT">Chat with HarshitGPT</span>
+                        </a>
+                        <!-- Krackle elements -->
+                        <div class="krackle k1"></div>
+                        <div class="krackle k2"></div>
+                        <div class="krackle k3"></div>
+                        <div class="krackle k4"></div>
+                    </div>
                 </div>
             </div>
+            
+            <div class="hero-content-right profile-container">
+                <div class="profile-tracking-arena">
+                    <img src="Main Photo.png" alt="Harshit Periwal" class="profile-base" />
+                    <div class="profile-matrix-mask">
+                        <img src="Matrix of Main Photo.png" alt="Cyber Matrix Filter" class="profile-matrix-img" />
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        </div>
+        <!-- Projects Section (Comic Covers) -->
+        <h2 class="section-title action-font glitch" data-text="Creations & Works">Creations & Works</h2>
+        <section class="projects-grid">
+            <a href="https://garrysescape.com" class="comic-cover purple-cover" target="_blank">
+                <div class="cover-content">
+                    <h3 class="action-font glitch" data-text="Garry's Escape">Garry's Escape</h3>
+                    <p>Award-winning educational game</p>
+                </div>
+            </a>
+
+            <a href="https://www.youtube.com/@HarshitPeriwal" class="comic-cover red-cover" target="_blank">
+                <div class="cover-content">
+                    <h3 class="action-font glitch" data-text="YouTube">YouTube</h3>
+                    <p>4K+ Subscribers</p>
+                </div>
+            </a>
+
+            <a href="https://github.com/HarshitPeriwal/EcoBin" class="comic-cover green-cover" target="_blank">
+                <div class="cover-content">
+                    <h3 class="action-font glitch" data-text="Eco Bin">Eco Bin</h3>
+                    <p>AI-powered waste segregation app</p>
+                </div>
+            </a>
+
+            <a href="Research Paper.pdf" class="comic-cover blue-cover" target="_blank">
+                <div class="cover-content">
+                    <h3 class="action-font glitch" data-text="Research Paper">Research Paper</h3>
+                    <p>AI Literacy in Rural India</p>
+                </div>
+            </a>
+
+            <a href="time.html" class="comic-cover time-cover" target="_blank">
+                <div class="cover-content">
+                    <h3 class="action-font glitch" data-text="TIME">TIME</h3>
+                    <p>Life Lately</p>
+                </div>
+            </a>
+        </section>
     </main>
 
+    <script>
+        // Hero Background Glitch
+        document.addEventListener('mousemove', (e) => {
+            const glitchLayer = document.querySelector('.background-dots-glitch');
+            if (glitchLayer) {
+                glitchLayer.style.setProperty('--mouse-x', e.clientX + 'px');
+                glitchLayer.style.setProperty('--mouse-y', e.clientY + 'px');
+            }
+        });
+
+        // Profile Matrix Glitch
+        const profileContainer = document.querySelector('.profile-container');
+        if (profileContainer) {
+            profileContainer.addEventListener('mousemove', (e) => {
+                const rect = profileContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                profileContainer.style.setProperty('--local-x', x + 'px');
+                profileContainer.style.setProperty('--local-y', y + 'px');
+            });
+        }
+    </script>
 </body>
 
 </html>
