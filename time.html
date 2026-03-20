@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>TIME - Life Lately</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .post-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .post-panel {
+            border: 6px solid #fff;
+            background-color: var(--ink-black);
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 10px 10px 0 var(--spider-red);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .post-panel:nth-child(even) {
+            box-shadow: 10px 10px 0 var(--spider-blue);
+            transform: skewX(-2deg);
+        }
+
+        .post-panel:nth-child(odd) {
+            transform: skewX(2deg);
+        }
+
+        .post-panel:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 15px 15px 0 var(--spider-purple);
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            text-shadow: 3px 3px 0 var(--spider-green);
+        }
+
+        .post-time {
+            font-size: 1rem;
+            color: var(--spider-blue);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .post-content {
+            font-size: 1.1rem;
+            white-space: pre-wrap;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-left: 4px solid var(--spider-red);
+        }
+
+        .back-nav {
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-dots"></div>
+    <div class="background-dots-glitch"></div>
+    <main class="comic-container">
+        
+        <div class="back-nav">
+            <a href="index.html" class="slanted-btn action-font purple-shadow">
+                <span class="btn-text glitch" data-text="← Back Home">← Back Home</span>
+            </a>
+        </div>
+
+        <section class="panel hero-panel" style="clip-path: polygon(0 0, 100% 2%, 98% 100%, 2% 98%); justify-content: center; text-align: center;">
+            <div style="width: 100%;">
+                <h1 class="headline action-font glitch" data-text="TIME">TIME</h1>
+            </div>
+        </section>
+
+        <!-- Posts Container -->
+        <section id="posts-container" class="post-grid">
+            <p style="text-align: center; color: var(--spider-green);">Loading posts...</p>
+        </section>
+
+    </main>
+
+    <script>
+        // Hero Background Glitch
+        document.addEventListener('mousemove', (e) => {
+            const glitchLayer = document.querySelector('.background-dots-glitch');
+            if (glitchLayer) {
+                glitchLayer.style.setProperty('--mouse-x', e.clientX + 'px');
+                glitchLayer.style.setProperty('--mouse-y', e.clientY + 'px');
+            }
+        });
+
+        // Load Posts
+        async function loadPosts() {
+            const container = document.getElementById('posts-container');
+            try {
+                // Add timestamp to prevent caching
+                const response = await fetch('posts.json?t=' + new Date().getTime());
+                if (!response.ok) throw new Error('Failed to fetch posts');
+                const posts = await response.json();
+                
+                if (posts.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: var(--spider-red);">No posts yet.</p>';
+                    return;
+                }
+
+                // Render posts, newest first
+                container.innerHTML = '';
+                posts.reverse().forEach(post => {
+                    const panel = document.createElement('div');
+                    panel.className = 'post-panel';
+                    
+                    const title = document.createElement('h2');
+                    title.className = 'post-title action-font glitch';
+                    title.setAttribute('data-text', post.title);
+                    title.textContent = post.title;
+
+                    const time = document.createElement('div');
+                    time.className = 'post-time';
+                    time.textContent = post.time;
+
+                    const content = document.createElement('div');
+                    content.className = 'post-content';
+                    content.textContent = post.content;
+
+                    panel.appendChild(title);
+                    panel.appendChild(time);
+                    panel.appendChild(content);
+
+                    container.appendChild(panel);
+                });
+
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = '<p style="text-align: center; color: var(--spider-red);">Error loading posts.</p>';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadPosts);
+    </script>
+</body>
+
+</html>

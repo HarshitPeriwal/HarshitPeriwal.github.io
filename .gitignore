@@ -1,0 +1,6 @@
+# Blog App specific files
+blog_app.exe
+blog_app.py
+blog_app.spec
+build/
+dist/
