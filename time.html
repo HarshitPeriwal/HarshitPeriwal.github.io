@@ -107,8 +107,9 @@
         async function loadPosts() {
             const container = document.getElementById('posts-container');
             try {
-                // Add timestamp to prevent caching
-                const response = await fetch('posts.json?t=' + new Date().getTime());
+                // Fetch from the isolated blog-data branch to keep main branch clean!
+                const url = 'https://raw.githubusercontent.com/HarshitPeriwal/HarshitPeriwal.github.io/blog-data/posts.json';
+                const response = await fetch(url + '?t=' + new Date().getTime());
                 if (!response.ok) throw new Error('Failed to fetch posts');
                 const posts = await response.json();
                 
