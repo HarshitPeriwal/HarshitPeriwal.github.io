@@ -4,3 +4,6 @@ blog_app.py
 blog_app.spec
 build/
 dist/
+apikey.js
+config.json
+posts_backup.json
