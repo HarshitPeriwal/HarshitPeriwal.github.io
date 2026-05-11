@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Documents - Harshit Periwal</title>
+    <link rel="stylesheet" href="style.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Rain Canvas */
+        .rain-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Page Layout */
+        .docs-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            padding: 20px var(--gutter);
+            position: relative;
+            z-index: 1;
+        }
+
+        .docs-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+            padding: 60px 80px;
+            border: 6px solid #fff;
+            background: rgba(5, 5, 5, 0.85);
+            box-shadow: 12px 12px 0 var(--spider-purple);
+            clip-path: polygon(1% 0, 99% 2%, 100% 98%, 0 100%);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .docs-title {
+            font-size: 4rem;
+            text-shadow: 4px 4px 0 var(--spider-blue);
+            text-align: center;
+            margin: 0;
+        }
+
+        .docs-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .doc-btn {
+            display: inline-block;
+            transform: skewX(-15deg);
+            border: 5px solid #fff;
+            padding: 25px 50px;
+            background: var(--ink-black);
+            color: #fff;
+            font-size: 2rem;
+            text-decoration: none;
+            position: relative;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .doc-btn .btn-text {
+            display: inline-block;
+            transform: skewX(15deg);
+        }
+
+        .doc-btn.resume-btn {
+            box-shadow: 8px 8px 0 var(--spider-green);
+        }
+
+        .doc-btn.resume-btn:hover {
+            box-shadow: 14px 14px 0 var(--spider-green);
+            transform: skewX(-15deg) translate(-4px, -4px);
+        }
+
+        .doc-btn.app-btn {
+            box-shadow: 8px 8px 0 var(--spider-red);
+        }
+
+        .doc-btn.app-btn:hover {
+            box-shadow: 14px 14px 0 var(--spider-red);
+            transform: skewX(-15deg) translate(-4px, -4px);
+        }
+
+        .back-nav {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 10;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .docs-panel {
+                padding: 40px 25px;
+                border-width: 4px;
+                width: 90%;
+            }
+
+            .docs-title {
+                font-size: clamp(2.5rem, 10vw, 3.5rem);
+            }
+
+            .docs-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: 25px;
+            }
+
+            .doc-btn {
+                width: 100%;
+                padding: 18px 20px;
+                font-size: 1.5rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .doc-btn {
+                transform: skewX(-8deg);
+            }
+
+            .doc-btn .btn-text {
+                transform: skewX(8deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-dots"></div>
+    <div class="background-dots-glitch"></div>
+    <canvas class="rain-canvas" id="rain-canvas"></canvas>
+
+    <div class="back-nav">
+        <a href="index.html" class="slanted-btn action-font purple-shadow">
+            <span class="btn-text glitch" data-text="← Back Home">← Back Home</span>
+        </a>
+    </div>
+
+    <div class="docs-wrapper">
+        <div class="docs-panel">
+            <h1 class="docs-title action-font glitch" data-text="Documents">Documents</h1>
+
+            <div class="docs-buttons">
+                <a href="Harshit_Periwal_Resume.pdf" class="doc-btn action-font resume-btn" target="_blank">
+                    <span class="btn-text glitch" data-text="View Resume">View Resume</span>
+                </a>
+                <a href="The Application.pdf" class="doc-btn action-font app-btn" target="_blank">
+                    <span class="btn-text glitch" data-text="View College Application">View College Application</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Background glitch effect
+        document.addEventListener('mousemove', (e) => {
+            const glitchLayer = document.querySelector('.background-dots-glitch');
+            if (glitchLayer) {
+                glitchLayer.style.setProperty('--mouse-x', e.clientX + 'px');
+                glitchLayer.style.setProperty('--mouse-y', e.clientY + 'px');
+            }
+        });
+
+        // ── Raining Text Effect ──
+        const canvas = document.getElementById('rain-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const phrases = [
+            "Apply to more reach schools",
+            "Academics first",
+        ];
+
+        const NEON_COLORS = [
+            '#39ff14',  // spider-green
+            '#b026ff',  // spider-purple
+            '#00f0ff',  // spider-blue
+            '#ff003c',  // spider-red
+        ];
+
+        let columns;
+        let drops;
+        let columnWidth = 28;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            columns = Math.floor(canvas.width / columnWidth);
+            // Preserve existing drops or init new ones
+            const oldDrops = drops || [];
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops.push(oldDrops[i] || {
+                    y: Math.random() * -100,
+                    speed: 0.3 + Math.random() * 0.7,
+                    phrase: phrases[Math.floor(Math.random() * phrases.length)],
+                    charIndex: Math.floor(Math.random() * 50),
+                    color: NEON_COLORS[Math.floor(Math.random() * NEON_COLORS.length)],
+                    opacity: 0.15 + Math.random() * 0.45,
+                });
+            }
+        }
+
+        function drawRain() {
+            // Semi-transparent black overlay for trail effect
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = "700 16px 'Space Mono', monospace";
+
+            for (let i = 0; i < columns; i++) {
+                const drop = drops[i];
+                const text = drop.phrase;
+                const char = text[drop.charIndex % text.length];
+
+                const x = i * columnWidth;
+                const y = drop.y * 20;
+
+                // Leading character is bright
+                ctx.fillStyle = drop.color;
+                ctx.globalAlpha = drop.opacity + 0.3;
+                ctx.fillText(char, x, y);
+
+                // Trail characters fade
+                ctx.globalAlpha = drop.opacity * 0.5;
+                const prevChar = text[(drop.charIndex - 1 + text.length) % text.length];
+                ctx.fillText(prevChar, x, y - 20);
+
+                ctx.globalAlpha = drop.opacity * 0.2;
+                const prevChar2 = text[(drop.charIndex - 2 + text.length) % text.length];
+                ctx.fillText(prevChar2, x, y - 40);
+
+                ctx.globalAlpha = 1;
+
+                drop.y += drop.speed;
+                drop.charIndex++;
+
+                // Reset when off screen
+                if (y > canvas.height + 100) {
+                    drop.y = Math.random() * -10;
+                    drop.speed = 0.3 + Math.random() * 0.7;
+                    drop.phrase = phrases[Math.floor(Math.random() * phrases.length)];
+                    drop.charIndex = 0;
+                    drop.color = NEON_COLORS[Math.floor(Math.random() * NEON_COLORS.length)];
+                    drop.opacity = 0.15 + Math.random() * 0.45;
+                }
+            }
+
+            requestAnimationFrame(drawRain);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        drawRain();
+    </script>
+</body>
+
+</html>
