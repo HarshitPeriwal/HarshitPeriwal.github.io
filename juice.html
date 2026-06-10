@@ -1,58 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Juice Glass – Sensory Experiment</title>
+    <title>Invitation</title>
     <meta name="description" content="Tilt your device to slosh juice inside a 2D glass.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="juice.css?v=7">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="juice.css?v=8">
 </head>
+
 <body class="theme-orange">
 
-    <!-- Liquid SVG — fills viewport, drawn every frame via JS -->
+    <!-- Liquid SVG -->
     <svg id="liquid-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
-            <!-- Vertical gradient: lighter at the liquid surface → darker at the bottom -->
             <linearGradient id="juice-grad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="100">
-                <stop id="gs1" offset="0%"   stop-color="#FFD080" />
-                <stop id="gs2" offset="30%"  stop-color="#FF8C00" />
+                <stop id="gs1" offset="0%" stop-color="#FFD080" />
+                <stop id="gs2" offset="30%" stop-color="#FF8C00" />
                 <stop id="gs3" offset="100%" stop-color="#BF5000" />
             </linearGradient>
-            <!-- Soft blur for the surface glow stroke -->
             <filter id="glow-blur" x="-10%" y="-50%" width="120%" height="200%">
                 <feGaussianBlur stdDeviation="5" />
             </filter>
         </defs>
-        <!-- Main juice body (gradient fill) -->
         <path id="liquid-body" fill="url(#juice-grad)" />
-        <!-- Glowing white highlight along the surface edge -->
-        <path id="liquid-glow" fill="none" stroke="white" stroke-opacity="0.22"
-              stroke-width="8" filter="url(#glow-blur)" />
+        <path id="liquid-glow" fill="none" stroke="white" stroke-opacity="0.22" stroke-width="8"
+            filter="url(#glow-blur)" />
     </svg>
 
-    <!-- Navigation -->
-    <a href="index.html" class="back-link" id="back-link">← Home</a>
+    <!-- Facts link (top left) -->
+    <a href="facts.html" class="nav-link" id="facts-link">Facts →</a>
+
+    <!-- Theme colour dot (top right) — shows the unused colour -->
+    <button id="theme-dot" class="theme-dot" aria-label="Switch theme colour"></button>
 
     <!-- iOS Sensor Permission -->
     <div id="sensor-request-card" class="card sensor-card hidden">
         <span class="tag">Sensor Setup</span>
         <h2>Enable Motion</h2>
         <p>Grant gyroscope access to slosh the juice.</p>
-        <button id="btn-request-sensor" class="btn">Enable Gyroscope</button>
+        <button id="btn-request-sensor" class="btn btn-full">Enable Gyroscope</button>
     </div>
 
     <!-- Main UI -->
     <div class="center-wrapper">
         <main class="card" id="lab-card">
-            <span class="tag" id="sensor-val">Tilt: X: 0.0° | Y: 0.0°</span>
-            <h1>JUICE</h1>
-            <p class="desc">Tilt your phone to slosh the juice around.</p>
-            <button id="theme-toggle" class="btn">Switch to Grape 🍇</button>
+            <h1>Will you come to Reboot with me?</h1>
+            <p class="question" id="question-text">pleaseeeeeeeeeeeeeeeee</p>
+            <div class="answer-group" id="answer-group">
+                <button id="btn-yes" class="btn btn-yes">Yes!</button>
+                <button id="btn-no" class="btn btn-no">No</button>
+            </div>
         </main>
     </div>
 
-    <script src="juice.js?v=7"></script>
+    <script src="juice.js?v=8"></script>
 </body>
+
 </html>
