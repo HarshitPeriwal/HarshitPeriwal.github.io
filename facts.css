@@ -1,0 +1,327 @@
+/* =====================================================================
+   TAARA FACTS STYLES (facts.css)
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+    --font-sans: 'Outfit', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    font-family: var(--font-sans);
+    overflow: hidden;
+    user-select: none;
+    color: #1a1a1a;
+}
+
+/* =====================================================================
+   LIQUID SVG
+   ===================================================================== */
+#liquid-svg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* =====================================================================
+   NAV LINK  (top left)
+   ===================================================================== */
+.nav-link {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    color: rgba(0, 0, 0, 0.35);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.nav-link:hover {
+    color: rgba(0, 0, 0, 0.7);
+    transform: translateX(-2px);
+}
+
+/* =====================================================================
+   THEME COLOUR DOT  (top right)
+   ===================================================================== */
+.theme-dot {
+    position: fixed;
+    top: 22px;
+    right: 22px;
+    z-index: 100;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: transform 0.25s ease, background-color 0.5s ease;
+}
+
+.theme-dot:hover  { transform: scale(1.25); }
+.theme-dot:active { transform: scale(0.9); }
+
+/* =====================================================================
+   LAYOUT  &  GLASS CARD
+   ===================================================================== */
+.center-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.card {
+    width: 100%;
+    max-width: 460px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 24px;
+    padding: 32px 24px 24px;
+    text-align: center;
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.07),
+        0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.scrollable-card {
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h1 {
+    font-size: 1.85rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.5px;
+    margin: 0 0 20px;
+    color: #111;
+    flex-shrink: 0;
+}
+
+/* ---- Facts Scrollable List ---- */
+.facts-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    text-align: left;
+    padding-right: 6px;
+    margin-right: -6px;
+}
+
+/* Hide scrollbar by default, custom webkit scrollbar */
+.facts-list::-webkit-scrollbar {
+    width: 5px;
+}
+.facts-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+.facts-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+}
+.facts-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.18);
+}
+
+/* =====================================================================
+   FACT ITEMS
+   ===================================================================== */
+.fact-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 14px 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    transition: background-color 0.25s, transform 0.25s, border-color 0.25s;
+    border-radius: 12px;
+    margin-bottom: 4px;
+    
+    /* Animation base */
+    opacity: 0;
+    transform: translateY(16px);
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fact-item:hover {
+    background-color: rgba(255, 255, 255, 0.45);
+    transform: translateX(3px);
+}
+
+.fact-icon {
+    font-size: 1.4rem;
+    margin-right: 14px;
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fact-item:hover .fact-icon {
+    transform: scale(1.2) rotate(6deg);
+}
+
+.fact-content {
+    flex-grow: 1;
+}
+
+.fact-content h3 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: rgba(0, 0, 0, 0.42);
+    font-family: var(--font-mono);
+    margin-bottom: 4px;
+}
+
+.fact-content p {
+    font-size: 0.94rem;
+    color: #2c2c2c;
+    line-height: 1.45;
+}
+
+/* ---- Color split progress bar ---- */
+.color-split-bar {
+    width: 100%;
+    height: 7px;
+    border-radius: 50px;
+    display: flex;
+    overflow: hidden;
+    margin-top: 8px;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.split-orange {
+    background: linear-gradient(90deg, #FF8C00, #FFA500);
+}
+
+.split-purple {
+    background: linear-gradient(90deg, #9B30FF, #D8B4FF);
+}
+
+/* ---- Special highlight fact (Taara is mine) ---- */
+.fact-item.special-fact {
+    background: rgba(255, 105, 180, 0.05);
+    border: 1px dashed rgba(255, 105, 180, 0.22);
+    border-bottom: 1px dashed rgba(255, 105, 180, 0.22);
+    margin-top: 12px;
+    padding: 16px 14px;
+}
+
+.fact-item.special-fact:hover {
+    background: rgba(255, 105, 180, 0.09);
+    border-color: rgba(255, 105, 180, 0.4);
+    transform: translateY(-1px) scale(1.01);
+}
+
+.fact-item.special-fact h3 {
+    color: rgba(230, 80, 150, 0.8);
+}
+
+.fact-item.special-fact p {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #bd2b75;
+}
+
+/* =====================================================================
+   BUBBLES
+   ===================================================================== */
+.bubble {
+    position: fixed;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 35% 35%,
+        rgba(255, 255, 255, 0.55),
+        rgba(255, 255, 255, 0.08)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    z-index: 1;
+    will-change: transform, opacity;
+    animation: rise linear forwards;
+}
+
+@keyframes rise {
+    0%   { transform: translateY(0) scale(1); opacity: 0; }
+    10%  { opacity: 0.55; }
+    70%  { opacity: 0.3; }
+    100% { transform: translateY(-28vh) scale(0.35); opacity: 0; }
+}
+
+/* =====================================================================
+   STAGGERED ENTRANCE ANIMATION
+   ===================================================================== */
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fact-item:nth-child(1) { animation-delay: 0.05s; }
+.fact-item:nth-child(2) { animation-delay: 0.12s; }
+.fact-item:nth-child(3) { animation-delay: 0.19s; }
+.fact-item:nth-child(4) { animation-delay: 0.26s; }
+.fact-item:nth-child(5) { animation-delay: 0.33s; }
+.fact-item:nth-child(6) { animation-delay: 0.40s; }
+.fact-item:nth-child(7) { animation-delay: 0.47s; }
+.fact-item:nth-child(8) { animation-delay: 0.54s; }
+.fact-item:nth-child(9) { animation-delay: 0.61s; }
+.fact-item:nth-child(10) { animation-delay: 0.68s; }
+.fact-item:nth-child(11) { animation-delay: 0.75s; }
+.fact-item:nth-child(12) { animation-delay: 0.82s; }
+.fact-item:nth-child(13) { animation-delay: 0.89s; }
+
+/* =====================================================================
+   RESPONSIVE
+   ===================================================================== */
+@media (min-width: 768px) {
+    .card {
+        max-width: 480px;
+        padding: 40px 32px 32px;
+    }
+    .card h1 {
+        font-size: 2.25rem;
+    }
+    .nav-link {
+        top: 28px;
+        left: 28px;
+    }
+    .theme-dot {
+        top: 28px;
+        right: 28px;
+    }
+    .fact-content p {
+        font-size: 0.98rem;
+    }
+}

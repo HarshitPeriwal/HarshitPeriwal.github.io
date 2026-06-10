@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Facts about Taara</title>
+    <meta name="description" content="A list of facts about Taara in a beautiful glassmorphic glass design.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="facts.css?v=8">
+</head>
+<body class="theme-orange">
+
+    <!-- Liquid SVG -->
+    <svg id="liquid-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+            <linearGradient id="juice-grad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="100">
+                <stop id="gs1" offset="0%" stop-color="#FFD080" />
+                <stop id="gs2" offset="30%" stop-color="#FF8C00" />
+                <stop id="gs3" offset="100%" stop-color="#BF5000" />
+            </linearGradient>
+            <filter id="glow-blur" x="-10%" y="-50%" width="120%" height="200%">
+                <feGaussianBlur stdDeviation="5" />
+            </filter>
+        </defs>
+        <path id="liquid-body" fill="url(#juice-grad)" />
+        <path id="liquid-glow" fill="none" stroke="white" stroke-opacity="0.22" stroke-width="8" filter="url(#glow-blur)" />
+    </svg>
+
+    <!-- Back link (top left) -->
+    <a href="juice.html?v=8" class="nav-link" id="back-link">← Back</a>
+
+    <!-- Theme colour dot (top right) -->
+    <button id="theme-dot" class="theme-dot" aria-label="Switch theme colour"></button>
+
+    <!-- Main UI -->
+    <div class="center-wrapper">
+        <main class="card scrollable-card" id="facts-card">
+            <h1>Taara Facts</h1>
+            <div class="facts-list">
+                
+                <div class="fact-item">
+                    <span class="fact-icon">🍦</span>
+                    <div class="fact-content">
+                        <h3>Favorite Ice Cream</h3>
+                        <p>Mississippi mud or double scoop chocolate and strawberry for 120 Rs — <strong>what a steal!</strong></p>
+                    </div>
+                </div>
+
+                <div class="fact-item">
+                    <span class="fact-icon">🎨</span>
+                    <div class="fact-content">
+                        <h3>Favorite Colors</h3>
+                        <p>Orange (60%) & Purple (40%)</p>
+                        <div class="color-split-bar">
+                            <div class="split-orange" style="width: 60%;" title="Orange: 60%"></div>
+                            <div class="split-purple" style="width: 40%;" title="Purple: 40%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fact-item">
+                    <span class="fact-icon">✈️</span>
+                    <div class="fact-content">
+                        <h3>Dream Destination</h3>
+                        <p>Wants to go to Vegas first 🎲</p>
+                    </div>
+                </div>
+
+                <div class="fact-item">
+                    <span class="fact-icon">🎬</span>
+                    <div class="fact-content">
+                        <h3>Next Journey</h3>
+                        <p>Will go to NYFA (New York Film Academy) 🗽</p>
+                    </div>
+                </div>
+
+                <div class="fact-item">
+                    <span class="fact-icon">🍝</span>
+                    <div class="fact-content">
+                        <h3>Comfort Food</h3>
+                        <p>White sauce pasta with vegetables 🥦</p>
+                    </div>
+                </div>
+
+                <div class="fact-item">
+                    <span class="fact-icon">🐶</span>
+                    <div class="fact-content">
+                        <h3>Favorite Doraemon Movie</h3>
+                        <p>The Dog Wali Movie 🐕</p>
+                    </div>
+                </div>
+
+                <div class="fact-item">
+                    <span class="fact-icon">👁️</span>
+                    <div class="fact-content">
+                        <h3>Aesthetic</h3>
+                        <p>Has the most beautiful eyes ✨</p>
+                    </div>
+                </div>
+
+                <div class="fact-item">
+                    <span class="fact-icon">💇‍♀️</span>
+                    <div class="fact-content">
+                        <h3>Best Quality</h3>
+                        <p>Hair is the most best 💖</p>
+                    </div>
+                </div>
+
+                <div class="fact-item">
+                    <span class="fact-icon">👑</span>
+                    <div class="fact-content">
+                        <h3>Face Card</h3>
+                        <p>Face card never declines 💎</p>
+                    </div>
+                </div>
+
+                <div class="fact-item">
+                    <span class="fact-icon">🎓</span>
+                    <div class="fact-content">
+                        <h3>Academic Ace</h3>
+                        <p>Academic ace and a topper 🏆</p>
+                    </div>
+                </div>
+
+                <div class="fact-item">
+                    <span class="fact-icon">⚽</span>
+                    <div class="fact-content">
+                        <h3>Pop Culture</h3>
+                        <p>Still knows ball and brainrot 🧠</p>
+                    </div>
+                </div>
+
+                <div class="fact-item">
+                    <span class="fact-icon">🥤</span>
+                    <div class="fact-content">
+                        <h3>Drink of Choice</h3>
+                        <p>Loves normal Coke 🔴</p>
+                    </div>
+                </div>
+
+                <div class="fact-item special-fact">
+                    <span class="fact-icon">❤️</span>
+                    <div class="fact-content">
+                        <h3>The Truth</h3>
+                        <p>Taara is mine 🥰</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="facts.js?v=8"></script>
+</body>
+</html>
