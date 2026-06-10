@@ -3,78 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Liquid Glass - Sensory Experiment</title>
-    <!-- Fonts -->
+    <title>Juice Glass – Sensory Experiment</title>
+    <meta name="description" content="Tilt your device to slosh juice inside a 2D glass.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <!-- CSS stylesheet -->
-    <link rel="stylesheet" href="juice.css?v=3">
+    <link rel="stylesheet" href="juice.css?v=7">
 </head>
 <body class="theme-orange">
-    
-    <!-- Liquid Background Layer (Behind Everything) -->
-    <div class="juice-bg-container">
-        <!-- Background Wave rings (Stays outside the gooey fluid layer so they don't get filtered out) -->
-        <div id="juice-wave-container"></div>
 
-        <!-- Fluid layer with blobs (Processed by the gooey filter) -->
-        <div class="juice-fluid-layer">
-            <!-- Main Liquid Blobs -->
-            <div class="juice-blobs" id="juice-blobs">
-                <div class="juice-blob blob-1"></div>
-                <div class="juice-blob blob-2"></div>
-                <div class="juice-blob blob-3"></div>
-                <div class="juice-blob blob-4"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SVG Gooey Filter - Hidden safely so it doesn't break Safari -->
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none;">
+    <!-- Liquid SVG — fills viewport, drawn every frame via JS -->
+    <svg id="liquid-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
-            <filter id="juice-goo">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="blur" />
-                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 32 -12" result="goo" />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+            <!-- Vertical gradient: lighter at the liquid surface → darker at the bottom -->
+            <linearGradient id="juice-grad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="100">
+                <stop id="gs1" offset="0%"   stop-color="#FFD080" />
+                <stop id="gs2" offset="30%"  stop-color="#FF8C00" />
+                <stop id="gs3" offset="100%" stop-color="#BF5000" />
+            </linearGradient>
+            <!-- Soft blur for the surface glow stroke -->
+            <filter id="glow-blur" x="-10%" y="-50%" width="120%" height="200%">
+                <feGaussianBlur stdDeviation="5" />
             </filter>
         </defs>
+        <!-- Main juice body (gradient fill) -->
+        <path id="liquid-body" fill="url(#juice-grad)" />
+        <!-- Glowing white highlight along the surface edge -->
+        <path id="liquid-glow" fill="none" stroke="white" stroke-opacity="0.22"
+              stroke-width="8" filter="url(#glow-blur)" />
     </svg>
 
-    <!-- Tiny navigation back home -->
-    <a href="index.html" class="minimal-back-link">← Home</a>
+    <!-- Navigation -->
+    <a href="index.html" class="back-link" id="back-link">← Home</a>
 
-    <!-- Center UI Content Wrapper -->
-    <div class="center-wrapper">
-        
-        <!-- Mobile Gyro Sensor Access Card (Shown only when permission is required) -->
-        <div id="sensor-request-card" class="glass-card sensor-card hidden">
-            <span class="tag">SENSOR SETUP</span>
-            <h2>Enable Motion Sensors</h2>
-            <p>We use your device gyroscope to slosh the liquid glass background. Please grant motion access to begin.</p>
-            <button id="btn-request-sensor" class="btn btn-secondary">Enable Gyroscope</button>
-        </div>
-
-        <!-- Main Centered Glass Card -->
-        <main class="glass-card" id="lab-card">
-            <div class="tag-row">
-                <span class="tag tag-theme">Experiment #092</span>
-                <span class="tag tag-monospace" id="sensor-val">Tilt: X: 0.0° | Y: 0.0°</span>
-            </div>
-            
-            <h1 class="card-title">LIQUID GLASS</h1>
-            
-            <p class="card-desc">
-                A phone-first sensory experiment. Tilt your phone to slosh the liquid glass background.
-            </p>
-            
-            <!-- Exactly One Button (Clean Theme Toggle) -->
-            <div class="button-group">
-                <button id="theme-toggle" class="btn btn-secondary">Switch Theme 🍊</button>
-            </div>
-        </main>
-
+    <!-- iOS Sensor Permission -->
+    <div id="sensor-request-card" class="card sensor-card hidden">
+        <span class="tag">Sensor Setup</span>
+        <h2>Enable Motion</h2>
+        <p>Grant gyroscope access to slosh the juice.</p>
+        <button id="btn-request-sensor" class="btn">Enable Gyroscope</button>
     </div>
 
-    <!-- JS Logic -->
-    <script src="juice.js?v=3"></script>
+    <!-- Main UI -->
+    <div class="center-wrapper">
+        <main class="card" id="lab-card">
+            <span class="tag" id="sensor-val">Tilt: X: 0.0° | Y: 0.0°</span>
+            <h1>JUICE</h1>
+            <p class="desc">Tilt your phone to slosh the juice around.</p>
+            <button id="theme-toggle" class="btn">Switch to Grape 🍇</button>
+        </main>
+    </div>
+
+    <script src="juice.js?v=7"></script>
 </body>
 </html>
