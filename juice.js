@@ -7,27 +7,27 @@ document.addEventListener('DOMContentLoaded', function () {
     /* ================================================================
        DOM
        ================================================================ */
-    var body         = document.body;
-    var svg          = document.getElementById('liquid-svg');
-    var liquidBody   = document.getElementById('liquid-body');
-    var liquidGlow   = document.getElementById('liquid-glow');
-    var juiceGrad    = document.getElementById('juice-grad');
-    var gs1          = document.getElementById('gs1');
-    var gs2          = document.getElementById('gs2');
-    var gs3          = document.getElementById('gs3');
-    var themeDot     = document.getElementById('theme-dot');
-    var labCard      = document.getElementById('lab-card');
+    var body = document.body;
+    var svg = document.getElementById('liquid-svg');
+    var liquidBody = document.getElementById('liquid-body');
+    var liquidGlow = document.getElementById('liquid-glow');
+    var juiceGrad = document.getElementById('juice-grad');
+    var gs1 = document.getElementById('gs1');
+    var gs2 = document.getElementById('gs2');
+    var gs3 = document.getElementById('gs3');
+    var themeDot = document.getElementById('theme-dot');
+    var labCard = document.getElementById('lab-card');
     var questionText = document.getElementById('question-text');
-    var answerGroup  = document.getElementById('answer-group');
-    var btnYes       = document.getElementById('btn-yes');
-    var btnNo        = document.getElementById('btn-no');
-    var sensorCard   = document.getElementById('sensor-request-card');
-    var btnSensor    = document.getElementById('btn-request-sensor');
+    var answerGroup = document.getElementById('answer-group');
+    var btnYes = document.getElementById('btn-yes');
+    var btnNo = document.getElementById('btn-no');
+    var sensorCard = document.getElementById('sensor-request-card');
+    var btnSensor = document.getElementById('btn-request-sensor');
 
     /* ================================================================
        EMOJI CONFIGURATION
        ================================================================ */
-    var YES_EMOJIS = ['😀', '😤', '🤬'];
+    var YES_EMOJIS = ['❤️', '🩷', '💗', '💓'];
 
     /* ================================================================
        THEME PALETTES
@@ -40,16 +40,16 @@ document.addEventListener('DOMContentLoaded', function () {
     /* ================================================================
        STATE
        ================================================================ */
-    var isPurple  = false;
+    var isPurple = false;
     var useMotion = false;
-    var time      = 0;
+    var time = 0;
 
     var curX = 0, curY = 0;
     var tgtX = 0, tgtY = 0;
     var velX = 0, velY = 0;
     var rawX = 0, rawY = 0;
 
-    var SPRING  = 0.022;
+    var SPRING = 0.022;
     var DAMPING = 0.88;
 
     var W = window.innerWidth;
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
        ================================================================ */
     var store = {
         get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-        set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+        set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) { } }
     };
 
     if (store.get('juice-theme') === 'purple') {
@@ -93,16 +93,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function hexToRgb(hex) {
-        return [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)];
+        return [parseInt(hex.slice(1, 3), 16), parseInt(hex.slice(3, 5), 16), parseInt(hex.slice(5, 7), 16)];
     }
 
     function rgbToHex(r, g, b) {
-        return '#' + ((1<<24)+(Math.round(r)<<16)+(Math.round(g)<<8)+Math.round(b)).toString(16).slice(1);
+        return '#' + ((1 << 24) + (Math.round(r) << 16) + (Math.round(g) << 8) + Math.round(b)).toString(16).slice(1);
     }
 
     function lerpHex(a, b, t) {
         var ca = hexToRgb(a), cb = hexToRgb(b);
-        return rgbToHex(ca[0]+(cb[0]-ca[0])*t, ca[1]+(cb[1]-ca[1])*t, ca[2]+(cb[2]-ca[2])*t);
+        return rgbToHex(ca[0] + (cb[0] - ca[0]) * t, ca[1] + (cb[1] - ca[1]) * t, ca[2] + (cb[2] - ca[2]) * t);
     }
 
     function animateTheme(from, to) {
@@ -198,9 +198,9 @@ document.addEventListener('DOMContentLoaded', function () {
         btnNo.addEventListener('click', function () {
             switch (minigame) {
                 case 1: teleportGame(); break;
-                case 2: captchaGame();  break;
+                case 2: captchaGame(); break;
                 case 3: passwordGame(); break;
-                case 4: essayGame();    break;
+                case 4: essayGame(); break;
             }
         });
     }
@@ -239,9 +239,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (noDodges === 1) {
             btnNo.style.position = 'fixed';
-            btnNo.style.zIndex   = '200';
-            btnNo.style.width    = '80px';
-            btnNo.style.height   = '42px';
+            btnNo.style.zIndex = '200';
+            btnNo.style.width = '80px';
+            btnNo.style.height = '42px';
             btnNo.style.fontSize = '0.85rem';
             btnNo.style.transition = 'left 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), top 0.2s cubic-bezier(0.25, 0.8, 0.25, 1)';
         }
@@ -260,9 +260,9 @@ document.addEventListener('DOMContentLoaded', function () {
             y = 65 + Math.random() * (H - btnHeight - 77); // avoid top bar (Facts / theme dot)
 
             // Check overlap with card
-            var cardLeft   = cardRect.left - pad;
-            var cardRight  = cardRect.right + pad;
-            var cardTop    = cardRect.top - pad;
+            var cardLeft = cardRect.left - pad;
+            var cardRight = cardRect.right + pad;
+            var cardTop = cardRect.top - pad;
             var cardBottom = cardRect.bottom + pad;
 
             if (x + btnWidth < cardLeft || x > cardRight || y + btnHeight < cardTop || y > cardBottom) {
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         btnNo.style.left = x.toFixed(1) + 'px';
-        btnNo.style.top  = y.toFixed(1) + 'px';
+        btnNo.style.top = y.toFixed(1) + 'px';
     }
 
     /* ================================================================
@@ -285,9 +285,9 @@ document.addEventListener('DOMContentLoaded', function () {
             '<p class="modal-desc">Complete this verification before saying \u201CNo\u201D</p>' +
 
             '<div class="captcha-widget" id="mg-captcha-click">' +
-                '<div class="captcha-check" id="mg-captcha-box"></div>' +
-                '<span class="captcha-label">I\u2019m not a robot</span>' +
-                '<span class="captcha-brand">reCAPTCHA<br>Privacy \u00B7 Terms</span>' +
+            '<div class="captcha-check" id="mg-captcha-box"></div>' +
+            '<span class="captcha-label">I\u2019m not a robot</span>' +
+            '<span class="captcha-brand">reCAPTCHA<br>Privacy \u00B7 Terms</span>' +
             '</div>' +
 
             '<div class="captcha-status" id="mg-captcha-status"></div>' +
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!modal) return;
 
         var widget = document.getElementById('mg-captcha-click');
-        var check  = document.getElementById('mg-captcha-box');
+        var check = document.getElementById('mg-captcha-box');
         var status = document.getElementById('mg-captcha-status');
         var clicked = false;
 
@@ -413,9 +413,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var modal = createModal(html);
         if (!modal) return;
 
-        var input    = document.getElementById('mg-pw-input');
+        var input = document.getElementById('mg-pw-input');
         var ruleList = document.getElementById('mg-pw-rules');
-        var submit   = document.getElementById('mg-pw-submit');
+        var submit = document.getElementById('mg-pw-submit');
         var revealed = 3; // Start with first 3 rules visible
 
         function renderRules(pw) {
@@ -434,8 +434,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 var met = rules[j].test(pw);
                 items +=
                     '<li class="' + (met ? 'met' : 'unmet') + '">' +
-                        '<span class="icon">' + (met ? '\u2713' : '\u2717') + '</span>' +
-                        '<span>' + rules[j].text + '</span>' +
+                    '<span class="icon">' + (met ? '\u2713' : '\u2717') + '</span>' +
+                    '<span>' + rules[j].text + '</span>' +
                     '</li>';
             }
             ruleList.innerHTML = items;
@@ -457,9 +457,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function essayGame() {
         var target = 1000;
         var escalations = [
-            { at: 1000,  next: 2000,  msg: 'Hmm, not quite convincing. We need at least 2,000 words.' },
-            { at: 2000,  next: 5000,  msg: 'Getting there! Our review board requires 5,000 words minimum.' },
-            { at: 5000,  next: 10000, msg: 'Impressive effort! Unfortunately the minimum is now 10,000 words.' },
+            { at: 1000, next: 2000, msg: 'Hmm, not quite convincing. We need at least 2,000 words.' },
+            { at: 2000, next: 5000, msg: 'Getting there! Our review board requires 5,000 words minimum.' },
+            { at: 5000, next: 10000, msg: 'Impressive effort! Unfortunately the minimum is now 10,000 words.' },
             { at: 10000, next: 50000, msg: 'Our committee has updated the policy. 50,000 words required.' },
             { at: 50000, next: 100000, msg: 'New regulation: 100,000 words. Sorry, we don\u2019t make the rules.' }
         ];
@@ -468,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var html =
             '<h2>\uD83D\uDCDD Wait, why not?</h2>' +
             '<p class="modal-desc">Please explain in a minimum of ' +
-                '<strong id="mg-essay-target">1,000</strong> words why you can\u2019t come.</p>' +
+            '<strong id="mg-essay-target">1,000</strong> words why you can\u2019t come.</p>' +
             '<textarea class="essay-area" id="mg-essay-text" placeholder="Start typing your essay\u2026"></textarea>' +
             '<div class="essay-counter" id="mg-essay-counter">0 / 1,000 words</div>' +
             '<div class="essay-escalation" id="mg-essay-esc"></div>' +
@@ -477,17 +477,17 @@ document.addEventListener('DOMContentLoaded', function () {
         var modal = createModal(html);
         if (!modal) return;
 
-        var textarea  = document.getElementById('mg-essay-text');
-        var counter   = document.getElementById('mg-essay-counter');
-        var targetEl  = document.getElementById('mg-essay-target');
-        var escEl     = document.getElementById('mg-essay-esc');
+        var textarea = document.getElementById('mg-essay-text');
+        var counter = document.getElementById('mg-essay-counter');
+        var targetEl = document.getElementById('mg-essay-target');
+        var escEl = document.getElementById('mg-essay-esc');
 
         function fmt(n) {
             return n.toLocaleString();
         }
 
         textarea.addEventListener('input', function () {
-            var text  = textarea.value.trim();
+            var text = textarea.value.trim();
             var words = text ? text.split(/\s+/).length : 0;
 
             // Escalate
@@ -541,10 +541,10 @@ document.addEventListener('DOMContentLoaded', function () {
             var x = -20 + f * (W + 40);
             var tiltY = (0.5 - f) * 2 * tilt;
             var w =
-                Math.sin(f * TAU * 1.2 + t * 1.5)       * 14 * amp +
-                Math.sin(f * TAU * 2.0 + t * 2.1 + 0.8) *  7 * amp +
-                Math.cos(f * TAU * 1.5 + t * 1.3 + 2.0) *  9 +
-                Math.sin(f * TAU * 3.0 + t * 2.7 + 1.2) *  4;
+                Math.sin(f * TAU * 1.2 + t * 1.5) * 14 * amp +
+                Math.sin(f * TAU * 2.0 + t * 2.1 + 0.8) * 7 * amp +
+                Math.cos(f * TAU * 1.5 + t * 1.3 + 2.0) * 9 +
+                Math.sin(f * TAU * 3.0 + t * 2.7 + 1.2) * 4;
             pts.push({ x: x, y: base + tiltY + w });
         }
         return pts;
@@ -588,9 +588,9 @@ document.addEventListener('DOMContentLoaded', function () {
         rawX = gamma; rawY = beta;
         var max = 30;
         gamma = Math.max(-max, Math.min(max, gamma));
-        beta  = Math.max(-max, Math.min(max, beta));
+        beta = Math.max(-max, Math.min(max, beta));
         tgtX = (gamma / max) * 55;
-        tgtY = (beta  / max) * 55;
+        tgtY = (beta / max) * 55;
     }
 
     /* ================================================================
@@ -617,7 +617,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (mobile && typeof DeviceOrientationEvent !== 'undefined') {
             if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                 if (sensorCard) sensorCard.classList.remove('hidden');
-                if (labCard)    labCard.classList.add('hidden');
+                if (labCard) labCard.classList.add('hidden');
             } else {
                 window.addEventListener('deviceorientation', onOrientation);
                 useMotion = true;
@@ -638,16 +638,16 @@ document.addEventListener('DOMContentLoaded', function () {
                             useMotion = true;
                         } else { setupMouse(); }
                         if (sensorCard) sensorCard.classList.add('hidden');
-                        if (labCard)    labCard.classList.remove('hidden');
+                        if (labCard) labCard.classList.remove('hidden');
                     })
                     .catch(function () {
                         if (sensorCard) sensorCard.classList.add('hidden');
-                        if (labCard)    labCard.classList.remove('hidden');
+                        if (labCard) labCard.classList.remove('hidden');
                         setupMouse();
                     });
             } else {
                 if (sensorCard) sensorCard.classList.add('hidden');
-                if (labCard)    labCard.classList.remove('hidden');
+                if (labCard) labCard.classList.remove('hidden');
                 setupMouse();
             }
         });
@@ -660,9 +660,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var el = document.createElement('div');
         el.className = 'bubble';
         var s = 5 + Math.random() * 13;
-        el.style.width  = s + 'px';
+        el.style.width = s + 'px';
         el.style.height = s + 'px';
-        el.style.left   = Math.random() * W + 'px';
+        el.style.left = Math.random() * W + 'px';
         el.style.bottom = Math.random() * 12 + '%';
         el.style.animationDuration = (3 + Math.random() * 4) + 's';
         document.body.appendChild(el);
